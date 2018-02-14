@@ -49,6 +49,7 @@ pipeline {
         stage('Chrome Mobile') {
           steps {
             echo 'Chrome Mobile'
+            error 'Error happened'
           }
         }
         stage('Chrome Desktop') {
