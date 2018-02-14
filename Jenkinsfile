@@ -6,7 +6,7 @@ pipeline {
         echo 'Docker Init'
       }
     }
-    stage('Git checkout') {
+    stage('Git clone') {
       steps {
         echo 'Git checkout'
       }
@@ -49,7 +49,6 @@ pipeline {
         stage('Chrome Mobile') {
           steps {
             echo 'Chrome Mobile'
-            error 'Error happened'
           }
         }
         stage('Chrome Desktop') {
