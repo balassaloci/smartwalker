@@ -18,9 +18,9 @@ pipeline {
             echo 'Webpack'
           }
         }
-        stage('Backend/Cython build') {
+        stage('Backend build') {
           steps {
-            echo 'Cython'
+            echo 'Backend'
           }
         }
       }
