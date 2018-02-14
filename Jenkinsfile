@@ -11,6 +11,20 @@ pipeline {
         echo 'Git checkout'
       }
     }
+    stage('Build') {
+      parallel {
+        stage('Webpack') {
+          steps {
+            echo 'Webpack'
+          }
+        }
+        stage('Backend/Cython build') {
+          steps {
+            echo 'Cython'
+          }
+        }
+      }
+    }
     stage('Unit tests') {
       parallel {
         stage('JUnit') {
@@ -47,6 +61,11 @@ pipeline {
             echo 'Safari'
           }
         }
+      }
+    }
+    stage('Deploy to Prod') {
+      steps {
+        echo 'Deploy'
       }
     }
   }
