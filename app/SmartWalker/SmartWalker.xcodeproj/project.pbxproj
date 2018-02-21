@@ -12,6 +12,10 @@
 		630158B32034544300F84147 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 630158B12034544300F84147 /* Main.storyboard */; };
 		630158B52034544300F84147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 630158B42034544300F84147 /* Assets.xcassets */; };
 		630158B82034544300F84147 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 630158B62034544300F84147 /* LaunchScreen.storyboard */; };
+		630158C0203DA0AE00F84147 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630158BF203DA0AD00F84147 /* LoginVC.swift */; };
+		630158C2203DA1E000F84147 /* PatientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630158C1203DA1E000F84147 /* PatientCell.swift */; };
+		630158C4203DA4FB00F84147 /* PatientTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630158C3203DA4FB00F84147 /* PatientTableVC.swift */; };
+		630158C6203DA53B00F84147 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630158C5203DA53B00F84147 /* Patient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,10 @@
 		630158B42034544300F84147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		630158B72034544300F84147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		630158B92034544300F84147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		630158BF203DA0AD00F84147 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		630158C1203DA1E000F84147 /* PatientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCell.swift; sourceTree = "<group>"; };
+		630158C3203DA4FB00F84147 /* PatientTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTableVC.swift; sourceTree = "<group>"; };
+		630158C5203DA53B00F84147 /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +63,10 @@
 			isa = PBXGroup;
 			children = (
 				630158AD2034544300F84147 /* AppDelegate.swift */,
+				630158BF203DA0AD00F84147 /* LoginVC.swift */,
+				630158C5203DA53B00F84147 /* Patient.swift */,
+				630158C1203DA1E000F84147 /* PatientCell.swift */,
+				630158C3203DA4FB00F84147 /* PatientTableVC.swift */,
 				630158AF2034544300F84147 /* ViewController.swift */,
 				630158B12034544300F84147 /* Main.storyboard */,
 				630158B42034544300F84147 /* Assets.xcassets */,
@@ -137,7 +149,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				630158B02034544300F84147 /* ViewController.swift in Sources */,
+				630158C4203DA4FB00F84147 /* PatientTableVC.swift in Sources */,
+				630158C2203DA1E000F84147 /* PatientCell.swift in Sources */,
 				630158AE2034544300F84147 /* AppDelegate.swift in Sources */,
+				630158C0203DA0AE00F84147 /* LoginVC.swift in Sources */,
+				630158C6203DA53B00F84147 /* Patient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
