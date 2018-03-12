@@ -127,7 +127,7 @@
                                         <constraint firstAttribute="trailing" secondItem="Axs-ZE-CBh" secondAttribute="trailing" constant="30" id="935-XY-yai"/>
                                         <constraint firstItem="Axs-ZE-CBh" firstAttribute="centerY" secondItem="L6s-Fd-Wsi" secondAttribute="centerY" id="DaD-Id-HM5"/>
                                         <constraint firstItem="Um7-Cq-nEv" firstAttribute="height" secondItem="EBK-ko-IRa" secondAttribute="height" id="Gjp-q0-MB5"/>
-                                        <constraint firstItem="Axs-ZE-CBh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L6s-Fd-Wsi" secondAttribute="trailing" constant="8" symbolic="YES" id="JbW-b7-Lk3"/>
+                                        <constraint firstItem="Axs-ZE-CBh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L6s-Fd-Wsi" secondAttribute="trailing" symbolic="YES" id="JbW-b7-Lk3"/>
                                         <constraint firstItem="Um7-Cq-nEv" firstAttribute="top" secondItem="L6s-Fd-Wsi" secondAttribute="bottom" constant="10" id="P2t-lg-9k4"/>
                                         <constraint firstAttribute="bottom" secondItem="Um7-Cq-nEv" secondAttribute="bottom" constant="10" id="c4n-dk-CWW"/>
                                         <constraint firstItem="Axs-ZE-CBh" firstAttribute="height" secondItem="L6s-Fd-Wsi" secondAttribute="height" id="cMW-71-MSa"/>
@@ -153,10 +153,76 @@
                             <outlet property="delegate" destination="1YU-6u-rbg" id="SJa-zJ-z4U"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="Iyt-f5-sVg" kind="show" identifier="patientDetailSegue" id="ZSF-7e-q4g"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HkX-5f-WFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1260" y="79.610194902548727"/>
+        </scene>
+        <!--Patient DetailVC-->
+        <scene sceneID="Dcc-3h-6MP">
+            <objects>
+                <viewController id="Iyt-f5-sVg" customClass="PatientDetailVC" customModule="SmartWalker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rdX-ex-XRm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gvf-Bn-ZI2">
+                                <rect key="frame" x="37.5" y="64" width="300" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parkinsonian gait" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPm-Re-IGd">
+                                <rect key="frame" x="122" y="105" width="130.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YuR-SX-HJx">
+                                <rect key="frame" x="18.5" y="136" width="337.5" height="157.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Whereas in normal gait, the heel strikes the ground before the toes (also called heel-to-toe walking), in Parkinsonian gait, motion is characterised by flat foot strike (where the entire foot is placed on the ground at the same time) or less often and in the more advanced stages of the disease by toe-to-heel walking (where the toes touch the ground before the heel). In addition, PD patients have reduced foot lifting during the swing phase of gait, which produces smaller clearance between the toes and the ground.
+
+</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ype-rG-qtr" customClass="BEMSimpleLineGraphView">
+                                <rect key="frame" x="18.5" y="313.5" width="337.5" height="333.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NPm-Re-IGd" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="JWE-A7-7U7"/>
+                            <constraint firstItem="Gvf-Bn-ZI2" firstAttribute="top" secondItem="V65-s2-jHq" secondAttribute="top" id="KfE-FM-3jl"/>
+                            <constraint firstItem="Ype-rG-qtr" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="LTF-qK-X5e"/>
+                            <constraint firstItem="V65-s2-jHq" firstAttribute="bottom" secondItem="Ype-rG-qtr" secondAttribute="bottom" constant="20" id="OZg-EK-hlA"/>
+                            <constraint firstItem="YuR-SX-HJx" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="bgO-RH-cKF"/>
+                            <constraint firstItem="Ype-rG-qtr" firstAttribute="height" secondItem="rdX-ex-XRm" secondAttribute="height" multiplier="0.5" id="dQh-6M-65g"/>
+                            <constraint firstItem="YuR-SX-HJx" firstAttribute="width" secondItem="rdX-ex-XRm" secondAttribute="width" multiplier="0.9" id="gBd-Yz-w7R"/>
+                            <constraint firstItem="NPm-Re-IGd" firstAttribute="top" secondItem="Gvf-Bn-ZI2" secondAttribute="bottom" constant="20" id="kcl-nX-tr7"/>
+                            <constraint firstItem="Ype-rG-qtr" firstAttribute="top" secondItem="YuR-SX-HJx" secondAttribute="bottom" constant="20" id="pCf-zk-vVq"/>
+                            <constraint firstItem="YuR-SX-HJx" firstAttribute="top" secondItem="NPm-Re-IGd" secondAttribute="bottom" constant="10" id="qP3-Y0-Lpc"/>
+                            <constraint firstItem="Ype-rG-qtr" firstAttribute="width" secondItem="rdX-ex-XRm" secondAttribute="width" multiplier="0.9" id="qka-VB-Iqq"/>
+                            <constraint firstItem="Gvf-Bn-ZI2" firstAttribute="width" secondItem="rdX-ex-XRm" secondAttribute="width" multiplier="0.8" id="tiH-eH-rPj"/>
+                            <constraint firstItem="Gvf-Bn-ZI2" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="ysT-hq-4S3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="V65-s2-jHq"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityGraphView" destination="Ype-rG-qtr" id="gZT-YS-Me1"/>
+                        <outlet property="diagnosisLabel" destination="NPm-Re-IGd" id="SHv-il-wFx"/>
+                        <outlet property="diagnosisTextView" destination="YuR-SX-HJx" id="EpE-Hc-8Al"/>
+                        <outlet property="nameLabel" destination="Gvf-Bn-ZI2" id="JzC-9D-w2G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kyc-HG-Bgg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1978.4000000000001" y="80.50974512743629"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="U2y-0C-REt">

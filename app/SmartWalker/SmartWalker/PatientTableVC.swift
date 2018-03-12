@@ -39,15 +39,20 @@ class PatientTableVC: UITableViewController {
         cell.descriptionLabel.text = patient.description
         return cell
     }
+    
+    // MARK: - Table view delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "patientDetailSegue", sender: patients[indexPath.row])
+    }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "patientDetailSegue", let destination = segue.destination as? PatientDetailVC, let patient = sender as? Patient {
+            destination.patient = patient
+        }
     }
-    */
 
 }

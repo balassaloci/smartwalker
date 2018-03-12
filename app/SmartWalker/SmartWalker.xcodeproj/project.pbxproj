@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3206A718AE067FB6FCA9B899 /* Pods_SmartWalker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B9B5A3F4755B368D5AAB99 /* Pods_SmartWalker.framework */; };
 		630158AE2034544300F84147 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630158AD2034544300F84147 /* AppDelegate.swift */; };
 		630158B02034544300F84147 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630158AF2034544300F84147 /* ViewController.swift */; };
 		630158B32034544300F84147 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 630158B12034544300F84147 /* Main.storyboard */; };
@@ -16,9 +17,12 @@
 		630158C2203DA1E000F84147 /* PatientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630158C1203DA1E000F84147 /* PatientCell.swift */; };
 		630158C4203DA4FB00F84147 /* PatientTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630158C3203DA4FB00F84147 /* PatientTableVC.swift */; };
 		630158C6203DA53B00F84147 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630158C5203DA53B00F84147 /* Patient.swift */; };
+		631861662056C99F009DBA74 /* PatientDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631861652056C99F009DBA74 /* PatientDetailVC.swift */; };
+		631861682056F9D5009DBA74 /* GaitModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631861672056F9D5009DBA74 /* GaitModelView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4263B6B50EA32DA4A28A7762 /* Pods-SmartWalker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartWalker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartWalker/Pods-SmartWalker.debug.xcconfig"; sourceTree = "<group>"; };
 		630158AA2034544300F84147 /* SmartWalker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartWalker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		630158AD2034544300F84147 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		630158AF2034544300F84147 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -30,6 +34,11 @@
 		630158C1203DA1E000F84147 /* PatientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCell.swift; sourceTree = "<group>"; };
 		630158C3203DA4FB00F84147 /* PatientTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTableVC.swift; sourceTree = "<group>"; };
 		630158C5203DA53B00F84147 /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
+		631861652056C99F009DBA74 /* PatientDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailVC.swift; sourceTree = "<group>"; };
+		631861672056F9D5009DBA74 /* GaitModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaitModelView.swift; sourceTree = "<group>"; };
+		631861692057047C009DBA74 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		89B9B5A3F4755B368D5AAB99 /* Pods_SmartWalker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartWalker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2EDD09B904FF2BF05A711FC /* Pods-SmartWalker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartWalker.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartWalker/Pods-SmartWalker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3206A718AE067FB6FCA9B899 /* Pods_SmartWalker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +58,8 @@
 			children = (
 				630158AC2034544300F84147 /* SmartWalker */,
 				630158AB2034544300F84147 /* Products */,
+				F36F604E40027F93EFBF5EA2 /* Pods */,
+				CEB287D39977A115C8029A57 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,10 +74,13 @@
 		630158AC2034544300F84147 /* SmartWalker */ = {
 			isa = PBXGroup;
 			children = (
+				631861692057047C009DBA74 /* BridgingHeader.h */,
 				630158AD2034544300F84147 /* AppDelegate.swift */,
 				630158BF203DA0AD00F84147 /* LoginVC.swift */,
+				631861672056F9D5009DBA74 /* GaitModelView.swift */,
 				630158C5203DA53B00F84147 /* Patient.swift */,
 				630158C1203DA1E000F84147 /* PatientCell.swift */,
+				631861652056C99F009DBA74 /* PatientDetailVC.swift */,
 				630158C3203DA4FB00F84147 /* PatientTableVC.swift */,
 				630158AF2034544300F84147 /* ViewController.swift */,
 				630158B12034544300F84147 /* Main.storyboard */,
@@ -76,6 +91,23 @@
 			path = SmartWalker;
 			sourceTree = "<group>";
 		};
+		CEB287D39977A115C8029A57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				89B9B5A3F4755B368D5AAB99 /* Pods_SmartWalker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F36F604E40027F93EFBF5EA2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4263B6B50EA32DA4A28A7762 /* Pods-SmartWalker.debug.xcconfig */,
+				B2EDD09B904FF2BF05A711FC /* Pods-SmartWalker.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -83,9 +115,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 630158BC2034544300F84147 /* Build configuration list for PBXNativeTarget "SmartWalker" */;
 			buildPhases = (
+				DE61507FB3ED454E0D90F30D /* [CP] Check Pods Manifest.lock */,
 				630158A62034544300F84147 /* Sources */,
 				630158A72034544300F84147 /* Frameworks */,
 				630158A82034544300F84147 /* Resources */,
+				2B8C0F9A14C62CF84D9F0FC7 /* [CP] Embed Pods Frameworks */,
+				A50D5008A97305B8CD26922B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -143,17 +178,73 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2B8C0F9A14C62CF84D9F0FC7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SmartWalker/Pods-SmartWalker-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BEMSimpleLineGraph/BEMSimpleLineGraph.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BEMSimpleLineGraph.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartWalker/Pods-SmartWalker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A50D5008A97305B8CD26922B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartWalker/Pods-SmartWalker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE61507FB3ED454E0D90F30D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SmartWalker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		630158A62034544300F84147 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				630158B02034544300F84147 /* ViewController.swift in Sources */,
+				631861662056C99F009DBA74 /* PatientDetailVC.swift in Sources */,
 				630158C4203DA4FB00F84147 /* PatientTableVC.swift in Sources */,
 				630158C2203DA1E000F84147 /* PatientCell.swift in Sources */,
 				630158AE2034544300F84147 /* AppDelegate.swift in Sources */,
 				630158C0203DA0AE00F84147 /* LoginVC.swift in Sources */,
 				630158C6203DA53B00F84147 /* Patient.swift in Sources */,
+				631861682056F9D5009DBA74 /* GaitModelView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +379,7 @@
 		};
 		630158BD2034544300F84147 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4263B6B50EA32DA4A28A7762 /* Pods-SmartWalker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -296,6 +388,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DavidPasztor.SmartWalker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = SmartWalker/BridgingHeader.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -303,6 +396,7 @@
 		};
 		630158BE2034544300F84147 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2EDD09B904FF2BF05A711FC /* Pods-SmartWalker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -311,6 +405,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DavidPasztor.SmartWalker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = SmartWalker/BridgingHeader.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
