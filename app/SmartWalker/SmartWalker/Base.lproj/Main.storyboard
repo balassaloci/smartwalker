@@ -153,6 +153,8 @@
                             <outlet property="delegate" destination="1YU-6u-rbg" id="SJa-zJ-z4U"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="Iyt-f5-sVg" kind="show" identifier="patientDetailSegue" id="ZSF-7e-q4g"/>
                     </connections>
@@ -182,7 +184,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YuR-SX-HJx">
-                                <rect key="frame" x="18.5" y="136" width="337.5" height="157.5"/>
+                                <rect key="frame" x="18.5" y="136" width="337.5" height="361"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Whereas in normal gait, the heel strikes the ground before the toes (also called heel-to-toe walking), in Parkinsonian gait, motion is characterised by flat foot strike (where the entire foot is placed on the ground at the same time) or less often and in the more advanced stages of the disease by toe-to-heel walking (where the toes touch the ground before the heel). In addition, PD patients have reduced foot lifting during the swing phase of gait, which produces smaller clearance between the toes and the ground.
 
@@ -190,31 +192,39 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ype-rG-qtr" customClass="BEMSimpleLineGraphView">
-                                <rect key="frame" x="18.5" y="313.5" width="337.5" height="333.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gn6-1t-kHs">
+                                <rect key="frame" x="123" y="527" width="128" height="30"/>
+                                <state key="normal" title="Show daily activity"/>
+                                <connections>
+                                    <segue destination="CrS-4f-kUi" kind="show" identifier="showActivitySegue" id="ZIg-jq-YJx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UW1-Pw-QOk">
+                                <rect key="frame" x="102" y="587" width="171" height="30"/>
+                                <state key="normal" title="Display visual Gait Model"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="V65-s2-jHq" firstAttribute="bottom" secondItem="UW1-Pw-QOk" secondAttribute="bottom" constant="50" id="9Cg-Eh-AIm"/>
                             <constraint firstItem="NPm-Re-IGd" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="JWE-A7-7U7"/>
                             <constraint firstItem="Gvf-Bn-ZI2" firstAttribute="top" secondItem="V65-s2-jHq" secondAttribute="top" id="KfE-FM-3jl"/>
-                            <constraint firstItem="Ype-rG-qtr" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="LTF-qK-X5e"/>
-                            <constraint firstItem="V65-s2-jHq" firstAttribute="bottom" secondItem="Ype-rG-qtr" secondAttribute="bottom" constant="20" id="OZg-EK-hlA"/>
+                            <constraint firstItem="UW1-Pw-QOk" firstAttribute="top" secondItem="gn6-1t-kHs" secondAttribute="bottom" constant="30" id="Uwq-5z-VMD"/>
+                            <constraint firstItem="gn6-1t-kHs" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="Xxx-Ww-UDz"/>
                             <constraint firstItem="YuR-SX-HJx" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="bgO-RH-cKF"/>
-                            <constraint firstItem="Ype-rG-qtr" firstAttribute="height" secondItem="rdX-ex-XRm" secondAttribute="height" multiplier="0.5" id="dQh-6M-65g"/>
+                            <constraint firstItem="gn6-1t-kHs" firstAttribute="top" secondItem="YuR-SX-HJx" secondAttribute="bottom" constant="30" id="dpc-6C-Zeg"/>
                             <constraint firstItem="YuR-SX-HJx" firstAttribute="width" secondItem="rdX-ex-XRm" secondAttribute="width" multiplier="0.9" id="gBd-Yz-w7R"/>
                             <constraint firstItem="NPm-Re-IGd" firstAttribute="top" secondItem="Gvf-Bn-ZI2" secondAttribute="bottom" constant="20" id="kcl-nX-tr7"/>
-                            <constraint firstItem="Ype-rG-qtr" firstAttribute="top" secondItem="YuR-SX-HJx" secondAttribute="bottom" constant="20" id="pCf-zk-vVq"/>
                             <constraint firstItem="YuR-SX-HJx" firstAttribute="top" secondItem="NPm-Re-IGd" secondAttribute="bottom" constant="10" id="qP3-Y0-Lpc"/>
-                            <constraint firstItem="Ype-rG-qtr" firstAttribute="width" secondItem="rdX-ex-XRm" secondAttribute="width" multiplier="0.9" id="qka-VB-Iqq"/>
                             <constraint firstItem="Gvf-Bn-ZI2" firstAttribute="width" secondItem="rdX-ex-XRm" secondAttribute="width" multiplier="0.8" id="tiH-eH-rPj"/>
+                            <constraint firstItem="UW1-Pw-QOk" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="xqm-wb-7OW"/>
                             <constraint firstItem="Gvf-Bn-ZI2" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="ysT-hq-4S3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="V65-s2-jHq"/>
                     </view>
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="activityGraphView" destination="Ype-rG-qtr" id="gZT-YS-Me1"/>
                         <outlet property="diagnosisLabel" destination="NPm-Re-IGd" id="SHv-il-wFx"/>
                         <outlet property="diagnosisTextView" destination="YuR-SX-HJx" id="EpE-Hc-8Al"/>
                         <outlet property="nameLabel" destination="Gvf-Bn-ZI2" id="JzC-9D-w2G"/>
@@ -222,7 +232,120 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kyc-HG-Bgg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1978.4000000000001" y="80.50974512743629"/>
+            <point key="canvasLocation" x="2042" y="80"/>
+        </scene>
+        <!--Activity GraphVC-->
+        <scene sceneID="vNh-1h-9Lu">
+            <objects>
+                <viewController id="CrS-4f-kUi" customClass="ActivityGraphVC" customModule="SmartWalker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0bw-Sn-Rfo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qs7-d1-vlI" customClass="BEMSimpleLineGraphView">
+                                <rect key="frame" x="10" y="125" width="355" height="266"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily walking distance of the patient" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95q-Wx-ykg">
+                                <rect key="frame" x="19" y="74" width="337.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2y-OU-cJP">
+                                <rect key="frame" x="20" y="411" width="40" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="IkZ-iD-ovm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s1F-IR-DBv">
+                                <rect key="frame" x="192.5" y="411" width="50" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="qei-zm-2r8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Zw-si-oWR">
+                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="542658649.22211504">
+                                    <!--2018-03-13 18:30:49 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="dateChanged" destination="CrS-4f-kUi" eventType="valueChanged" id="9l8-De-G4T"/>
+                                </connections>
+                            </datePicker>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="616-9O-RIV" userLabel="Start Date Field">
+                                <rect key="frame" x="70" y="411" width="102.5" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="editStartDate" destination="CrS-4f-kUi" eventType="editingDidBegin" id="hnL-Eh-geA"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Shv-1h-BXd" userLabel="End Date Field">
+                                <rect key="frame" x="252.5" y="410.5" width="102.5" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="editEndDate" destination="CrS-4f-kUi" eventType="editingDidBegin" id="88E-z8-GYZ"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7Zw-si-oWR" firstAttribute="top" secondItem="w2y-OU-cJP" secondAttribute="bottom" constant="10" id="290-MT-cis"/>
+                            <constraint firstItem="Qs7-d1-vlI" firstAttribute="centerX" secondItem="oSI-YE-N9U" secondAttribute="centerX" id="6Dz-12-yD0"/>
+                            <constraint firstItem="w2y-OU-cJP" firstAttribute="height" secondItem="616-9O-RIV" secondAttribute="height" id="9Vv-bu-GjI"/>
+                            <constraint firstItem="Shv-1h-BXd" firstAttribute="leading" secondItem="s1F-IR-DBv" secondAttribute="trailing" constant="10" id="Brc-Gx-41K"/>
+                            <constraint firstItem="616-9O-RIV" firstAttribute="height" secondItem="s1F-IR-DBv" secondAttribute="height" id="HzF-Xq-MnI"/>
+                            <constraint firstItem="Shv-1h-BXd" firstAttribute="height" secondItem="s1F-IR-DBv" secondAttribute="height" id="IjT-2y-azo"/>
+                            <constraint firstItem="Shv-1h-BXd" firstAttribute="trailing" secondItem="oSI-YE-N9U" secondAttribute="trailing" constant="-20" id="OLm-ss-dOx"/>
+                            <constraint firstItem="95q-Wx-ykg" firstAttribute="width" secondItem="oSI-YE-N9U" secondAttribute="width" multiplier="0.9" id="OTU-tu-iw2"/>
+                            <constraint firstItem="Qs7-d1-vlI" firstAttribute="top" secondItem="95q-Wx-ykg" secondAttribute="bottom" constant="30" id="PPQ-PL-83a"/>
+                            <constraint firstItem="Shv-1h-BXd" firstAttribute="centerY" secondItem="s1F-IR-DBv" secondAttribute="centerY" id="Pvm-1O-bZ5"/>
+                            <constraint firstItem="7Zw-si-oWR" firstAttribute="centerX" secondItem="oSI-YE-N9U" secondAttribute="centerX" id="SRC-ii-dGL"/>
+                            <constraint firstItem="oSI-YE-N9U" firstAttribute="bottom" secondItem="7Zw-si-oWR" secondAttribute="bottom" id="a7D-zy-umZ"/>
+                            <constraint firstItem="616-9O-RIV" firstAttribute="leading" secondItem="w2y-OU-cJP" secondAttribute="trailing" constant="10" id="aSv-hw-IQm"/>
+                            <constraint firstItem="Qs7-d1-vlI" firstAttribute="leading" secondItem="oSI-YE-N9U" secondAttribute="leading" constant="10" id="d5l-Lk-SMD"/>
+                            <constraint firstItem="95q-Wx-ykg" firstAttribute="centerX" secondItem="oSI-YE-N9U" secondAttribute="centerX" id="emy-nz-au8"/>
+                            <constraint firstItem="w2y-OU-cJP" firstAttribute="centerY" secondItem="616-9O-RIV" secondAttribute="centerY" id="fsd-F6-imi"/>
+                            <constraint firstItem="Shv-1h-BXd" firstAttribute="width" secondItem="616-9O-RIV" secondAttribute="width" id="gl8-ID-npg"/>
+                            <constraint firstItem="w2y-OU-cJP" firstAttribute="leading" secondItem="oSI-YE-N9U" secondAttribute="leading" constant="20" id="iem-o6-EhM"/>
+                            <constraint firstItem="95q-Wx-ykg" firstAttribute="top" secondItem="oSI-YE-N9U" secondAttribute="top" constant="10" id="jhc-xw-j7G"/>
+                            <constraint firstItem="616-9O-RIV" firstAttribute="centerY" secondItem="s1F-IR-DBv" secondAttribute="centerY" id="ksn-Tt-sik"/>
+                            <constraint firstItem="oSI-YE-N9U" firstAttribute="trailing" secondItem="Qs7-d1-vlI" secondAttribute="trailing" constant="10" id="n3A-SF-Etw"/>
+                            <constraint firstItem="w2y-OU-cJP" firstAttribute="top" secondItem="Qs7-d1-vlI" secondAttribute="bottom" constant="20" id="rPj-8y-oqA"/>
+                            <constraint firstItem="s1F-IR-DBv" firstAttribute="leading" secondItem="616-9O-RIV" secondAttribute="trailing" constant="20" id="y4G-oW-oul"/>
+                            <constraint firstItem="7Zw-si-oWR" firstAttribute="width" secondItem="0bw-Sn-Rfo" secondAttribute="width" id="zd6-ZP-bAu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="oSI-YE-N9U"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="idT-2T-sCy">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="MMg-la-7lb">
+                            <connections>
+                                <action selector="refreshGraph:" destination="CrS-4f-kUi" id="Bbl-NV-5M1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="activityGraphView" destination="Qs7-d1-vlI" id="7wL-Xi-mcv"/>
+                        <outlet property="datePicker" destination="7Zw-si-oWR" id="udC-NC-GSK"/>
+                        <outlet property="endDateField" destination="Shv-1h-BXd" id="K5f-Zw-mYb"/>
+                        <outlet property="startDateField" destination="616-9O-RIV" id="7s0-YR-yyO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ft3-fp-NLl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2807" y="80"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="U2y-0C-REt">

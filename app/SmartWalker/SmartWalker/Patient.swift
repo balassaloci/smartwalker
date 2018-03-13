@@ -10,6 +10,7 @@ import Foundation
 
 struct Patient {
     let name:String
+    let id:Int
     let nhsNumber:Int
     let birthday:Date
     let description:String
@@ -22,6 +23,7 @@ struct Patient {
     }
     
     init(name:String,nhsNumber:Int,birthday:Date,description:String,diagnosis:GaitDiagnosis?=nil, walkingMeasurements:[WalkingMeasurement]=[WalkingMeasurement]()) {
+        self.id = 1
         self.name = name
         self.nhsNumber = nhsNumber
         self.birthday = birthday

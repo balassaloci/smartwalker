@@ -246,7 +246,7 @@ class OpenPoseKeypointsView: UIView {
 if let keypointCoordinates = parseKeypoints(from: pointsJson) {
     let keypointsArray = OpenPoseKeyPointsArray(keypointCoordinates)
     keypointsArray
-    let modelView = OpenPoseKeypointsView(with: keypointCoordinates)
+    let modelView = GaitModelView(with: keypointCoordinates)
     modelView?.keypoints
     modelView?.backgroundColor = .white
     modelView?.frame = CGRect(x: 0, y: 0, width: 300, height: 500)
