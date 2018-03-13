@@ -255,3 +255,4 @@ if let keypointCoordinates = parseKeypoints(from: pointsJson) {
 } else {
     print("Couldn't parse keypoint coordinates from JSON or invalid length")
 }
+

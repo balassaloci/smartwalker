@@ -22,11 +22,15 @@ class PatientDetailVC: UIViewController {
             guard let measurements = measurements, error == nil else {
                 print(error!); return
             }
+            /*
             guard let mostRecentModel = measurements.first(where: {$0.pose != nil})?.pose else {
                 print("No keypoints measurement in the last 7 days"); return
             }
+            */
+            let measurementsWithPose = measurements.flatMap({$0.pose})
             self.activityIndicator.stopAnimating()
-            self.performSegue(withIdentifier: self.displayGaitModelSegue, sender: mostRecentModel)
+            //self.performSegue(withIdentifier: self.displayGaitModelSegue, sender: mostRecentModel)
+            self.performSegue(withIdentifier: self.displayGaitModelSegue, sender: measurementsWithPose)
         })
     }
     
@@ -45,8 +49,9 @@ class PatientDetailVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showActivitySegue", let destination = segue.destination as? ActivityGraphVC {
             destination.patient = patient
-        } else if segue.identifier == displayGaitModelSegue, let destination = segue.destination as? DisplayGaitModelVC, let keypoints = sender as? OpenPoseKeyPointsArray {
-            destination.keypoints = keypoints
+        } else if segue.identifier == displayGaitModelSegue, let destination = segue.destination as? DisplayGaitModelVC, let keypoints = sender as? [OpenPoseKeyPointsArray] /*OpenPoseKeyPointsArray*/ {
+            //destination.keypoints = keypoints
+            destination.keypointsTimeline = keypoints
         }
     }
 }
