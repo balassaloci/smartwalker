@@ -1,0 +1,35 @@
+
+basic user data:
+
+/getUserData/id/:
+
+{
+"id":12,
+"name": "John",
+"birthdate":123(unix timestamp)
+}
+
+
+/getEvents/userid/:
+
+[
+    {eventid:12,
+    shortdiagnosis:"parkinsons",
+    confidence:1.0,
+    longdiagnosis:"wikipedia text",
+    timestamp:123(unix timestamp)
+    },
+    {},{}..
+]
+
+
+/getMeasurement/from/to/:
+
+[
+    {measurementid:12,
+    timestamp:123,
+    grip: {lgrp:1,rgrp:2,llean:1,rlean:2 (all ints are 0 <= 2)}
+    pose: [1,2,
+
+
+]
