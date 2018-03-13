@@ -4,7 +4,7 @@ import UIKit
 import PlaygroundSupport
 
 let pointsJson = """
-[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [584.312, 153.303, 0.198902], [588.271, 360.965, 0.551047], [601.937, 549.081, 0.6626], [692.081, 141.552, 0.194277], [695.97, 366.867, 0.466578], [682.312, 566.683, 0.504634], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [584.312, 153.303, 0.198902], [588.271, 360.965, 0.551047], [601.937, 549.081, 0.6626], [692.081, 141.552, 0.194277], [695.97, 366.867, 0.466578], [682.312, 566.683, 0.504634], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],[0,0,0]]
 """
 
 func parseKeypoints(from json:String)->[CGPoint]?{
@@ -21,17 +21,6 @@ func parseKeypoints(from json:String)->[CGPoint]?{
         return nil
     }
 }
-
-/*
- Bodyparts - 18 elements
- {8,  "RHip"},
- {9,  "RKnee"},
- {10, "RAnkle"},
- {11, "LHip"},
- {12, "LKnee"},
- {13, "LAnkle"},
- */
-
 
 extension UIBezierPath {
     /**
@@ -53,6 +42,91 @@ extension UIBezierPath {
         self.addLine(to: point)
         self.stroke()
         self.removeAllPoints()
+    }
+}
+
+//: ![OpenPose Keypoints](keypoints_pose.png)
+
+/**
+ Name of the available OpenPose keypoints with their corresponding rawValues (starting from 0) representing their indexes in the JSON output array from OpenPose
+ */
+enum OpenPoseKeyPoint:Int {
+    case Nose, Neck, RightShoulder, RightElbow, RightWrist, LeftShoulder, LeftElbow, LeftWrist, RightHip, RightKnee, RightAnkle, LeftHip, LeftKnee, LeftAnkle, RightEye, LeftEye, RightEar, LeftEar, Background
+    
+    // Find the last existing rawValue, assumes that the first case has rawValue 0 and that rawValues are incremented by 1
+    static let maxRawValue: OpenPoseKeyPoint.RawValue = {
+        var maxRawVal = 0
+        while OpenPoseKeyPoint(rawValue: maxRawVal) != nil {
+            maxRawVal += 1
+        }
+        return maxRawVal
+    }()
+    
+    static let rawValues: [OpenPoseKeyPoint.RawValue] = {
+        var rawValues = [OpenPoseKeyPoint.RawValue]()
+        var currentRawValue = 0
+        while OpenPoseKeyPoint(rawValue: currentRawValue) != nil {
+            rawValues.append(currentRawValue)
+            currentRawValue += 1
+        }
+        return rawValues
+    }()
+}
+
+extension OpenPoseKeyPoint: Hashable {} //Needed for O(1) subscripting
+
+extension OpenPoseKeyPoint: Comparable {
+    static func <(lhs: OpenPoseKeyPoint, rhs: OpenPoseKeyPoint) -> Bool {
+        return lhs.rawValue < rhs.rawValue
+    }
+}
+
+extension OpenPoseKeyPoint: Strideable {
+    typealias Stride = Int
+    func distance(to other: OpenPoseKeyPoint) -> OpenPoseKeyPoint.Stride {
+        return self.rawValue - other.rawValue
+    }
+    
+    func advanced(by n: OpenPoseKeyPoint.Stride) -> OpenPoseKeyPoint {
+        return OpenPoseKeyPoint(rawValue: (self.rawValue+n)%OpenPoseKeyPoint.maxRawValue)!
+    }
+}
+
+/**
+ Collection type holding OpenPoseKeyPoint instances, its indexes can only be OpenPoseKeyPoint instances and to create one, all keypoints need to be present
+ Its values should be CGPoints representing the coordinates of the keypoints
+ */
+struct OpenPoseKeyPointsArray: Collection, RandomAccessCollection {
+    typealias Element = CGPoint
+    typealias Index = OpenPoseKeyPoint
+    
+    var keypoints: [Element] = Array<Element>.init(repeating: Element.init(), count: OpenPoseKeyPoint.rawValues.count)
+    var startIndex: Index {
+        return OpenPoseKeyPoint(rawValue: keypoints.startIndex)!
+    }
+    var endIndex: Index {
+        return OpenPoseKeyPoint(rawValue: keypoints.startIndex)!
+    }
+    
+    subscript (position: Index) -> Element {
+        get {
+            return keypoints[position.rawValue]
+        }
+        set {
+            keypoints[position.rawValue] = newValue
+        }
+    }
+    
+    func index(after i: Index) -> Index {
+        return Index(rawValue: keypoints.index(after: i.rawValue))!
+    }
+    
+    private init(){}
+    init?<C:Collection>(_ collection:C) where C.Element == CGPoint, C.Index == Int {
+        guard collection.indices.map({$0}) == OpenPoseKeyPoint.rawValues else {return nil}
+        for (index, element) in collection.enumerated() {
+            self.keypoints[index] = element
+        }
     }
 }
 
@@ -85,25 +159,81 @@ class GaitModelView: UIView {
         let pointsPath = UIBezierPath()
         UIColor.blue.setStroke()
         UIColor.blue.setFill()
-        pointsPath.drawPoint(at: keypointCoordinates[10], ofSize: 5)
-        pointsPath.drawLineAndResetPath(to: keypointCoordinates[9])
-        pointsPath.drawPoint(at: keypointCoordinates[9], ofSize: 5)
-        pointsPath.drawLineAndResetPath(to: keypointCoordinates[8])
-        pointsPath.drawPoint(at: keypointCoordinates[8], ofSize: 5)
-        pointsPath.drawLineAndResetPath(to: keypointCoordinates[11])
-        pointsPath.drawPoint(at: keypointCoordinates[11], ofSize: 5)
-        pointsPath.drawLineAndResetPath(to: keypointCoordinates[12])
-        pointsPath.drawPoint(at: keypointCoordinates[12], ofSize: 5)
-        pointsPath.drawLineAndResetPath(to: keypointCoordinates[13])
-        pointsPath.drawPoint(at: keypointCoordinates[13], ofSize: 5)
+        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.RightAnkle.rawValue], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypointCoordinates[OpenPoseKeyPoint.RightKnee.rawValue])
+        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.RightKnee.rawValue], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypointCoordinates[OpenPoseKeyPoint.RightHip.rawValue])
+        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.RightHip.rawValue], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypointCoordinates[OpenPoseKeyPoint.LeftHip.rawValue])
+        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.LeftHip.rawValue], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypointCoordinates[OpenPoseKeyPoint.LeftKnee.rawValue])
+        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.LeftKnee.rawValue], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypointCoordinates[OpenPoseKeyPoint.LeftAnkle.rawValue])
+        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.LeftAnkle.rawValue], ofSize: 5)
     }
-    
 }
 
-if let keypointCoordinates = parseKeypoints(from: pointsJson), keypointCoordinates.count == 18 {
-    let modelView = GaitModelView(with: keypointCoordinates)
-    modelView.backgroundColor = .white
-    modelView.frame = CGRect(x: 0, y: 0, width: 300, height: 500)
+class OpenPoseKeypointsView: UIView {
+    var keypoints: OpenPoseKeyPointsArray
+    
+    init?(with coordinates:[CGPoint]){
+        guard let keypointsArray = OpenPoseKeyPointsArray(coordinates) else {return nil}
+        keypoints = keypointsArray
+        super.init(frame: CGRect.zero)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        // Coordinates should be normalized ([0,1]), so to map them
+        let mapCoordinatesToRect = CGAffineTransform(scaleX: rect.width, y: rect.height)
+        for i in keypoints.indices {
+            keypoints[i] = keypoints[i].applying(mapCoordinatesToRect)
+        }
+        keypoints
+        let pointsPath = UIBezierPath()
+        UIColor.blue.setStroke()
+        UIColor.blue.setFill()
+        pointsPath.drawPoint(at: keypoints[.RightAnkle], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypoints[.RightKnee])
+        pointsPath.drawPoint(at: keypoints[.RightKnee], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypoints[.RightHip])
+        pointsPath.drawPoint(at: keypoints[.RightHip], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypoints[.Neck])
+        pointsPath.drawPoint(at: keypoints[.Neck], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypoints[.LeftHip])
+        pointsPath.drawPoint(at: keypoints[.LeftHip], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypoints[.LeftKnee])
+        pointsPath.drawPoint(at: keypoints[.LeftKnee], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypoints[.LeftAnkle])
+        pointsPath.drawPoint(at: keypoints[.LeftAnkle], ofSize: 5)
+        pointsPath.removeAllPoints()
+        pointsPath.move(to: keypoints[.LeftWrist])
+        pointsPath.drawPoint(at: keypoints[.LeftWrist], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypoints[.LeftElbow])
+        pointsPath.drawPoint(at: keypoints[.LeftElbow], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypoints[.LeftShoulder])
+        pointsPath.drawPoint(at: keypoints[.LeftShoulder], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypoints[.Neck])
+        pointsPath.drawLineAndResetPath(to: keypoints[.RightShoulder])
+        pointsPath.drawPoint(at: keypoints[.RightShoulder], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypoints[.RightElbow])
+        pointsPath.drawPoint(at: keypoints[.RightElbow], ofSize: 5)
+        pointsPath.drawLineAndResetPath(to: keypoints[.RightWrist])
+        pointsPath.drawPoint(at: keypoints[.RightWrist], ofSize: 5)
+    }
+}
+
+if let keypointCoordinates = parseKeypoints(from: pointsJson) {
+    let keypointsArray = OpenPoseKeyPointsArray(keypointCoordinates)
+    keypointsArray
+    let modelView = OpenPoseKeypointsView(with: keypointCoordinates)
+    modelView?.keypoints
+    modelView?.backgroundColor = .white
+    modelView?.frame = CGRect(x: 0, y: 0, width: 300, height: 500)
     PlaygroundPage.current.needsIndefiniteExecution = true
     PlaygroundPage.current.liveView = modelView
 } else {
