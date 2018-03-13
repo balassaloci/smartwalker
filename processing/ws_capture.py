@@ -7,7 +7,8 @@ import base64
 import json
 from websocket import create_connection
 import throttler
-import sensor_reader as sr
+#import sensor_reader as sr
+import sensor_reader_mock as sr
 import datetime
 import async_uploader as uploader
 
@@ -25,10 +26,10 @@ act = "h"
 img_counter = 0
 # maxframes = 10
 
-ws = create_connection(SERVER_URL)
+#ws = create_connection(SERVER_URL)
 sr.run()
 
-print(" [x] Connected to: " + SERVER_URL)
+#print(" [x] Connected to: " + SERVER_URL)
 
 def captureAndSend(period):
 
@@ -100,6 +101,12 @@ def captureAndSend(period):
             # print(" [x] saved frame")
             lastmeasure = sr.getMeasurement()
             lastmeasure["act"] = act
+            lastmeasure["meta"] = json.dumps(
+                {"width": 720,
+                 "height": 720,
+                 "fps": 20}
+            )
+
             # print(" [x] got last measurement")
             measurements.append(lastmeasure)
 
@@ -133,31 +140,32 @@ def captureAndSend(period):
         tEnc = time.time() - tEnc
         print(" [x] Encoded file in %f" % tEnc)
 
-        print(" [x] Sending video file")
-        tSend = time.time()
+        #print(" [x] Sending video file")
+        #tSend = time.time()
 
         # print(measurements)
 
         jsonmsg = json.dumps({"measurements": measurements, "video": b64_video})
 
-        ws.send(jsonmsg)
+        uploader.upload(jsonmsg)
+        #ws.send(jsonmsg)
 
-        tSend = time.time() - tSend
-        print(" [x] Video file sent in %f" % tSend)
+        #tSend = time.time() - tSend
+        #print(" [x] Video file sent in %f" % tSend)
 
-        tResp = time.time()
+        #tResp = time.time()
 
-        resp = ws.recv()
+        #resp = ws.recv()
 
-        tResp = time.time() - tResp
+        #tResp = time.time() - tResp
 
-        print(" [x] Response received in %f" % tResp)
+        #print(" [x] Response received in %f" % tResp)
 
 
 for _ in range(1):
     print("")
     print(" [-] Running capture and send")
-    captureAndSend(20)
+    captureAndSend(3)
 
 # Release everything if job is finished
 cam.release()

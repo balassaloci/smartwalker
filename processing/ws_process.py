@@ -25,7 +25,10 @@ def save_measurements(measurements, vid_id):
                 grip=json.dumps([m["llean"],m["rlean"],m["lgrp"],m["rgrp"]]),
                 dist=m["distance"],
                 opose="",
-                vid_id=vid_id
+                vid_id=vid_id,
+                act=m["act"],
+                meta=m["meta"],
+                processed=""
             )
         except Exception as e:
             print("unable to save: " + str(e))
