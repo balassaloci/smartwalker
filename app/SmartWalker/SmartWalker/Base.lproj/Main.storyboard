@@ -202,6 +202,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UW1-Pw-QOk">
                                 <rect key="frame" x="102" y="587" width="171" height="30"/>
                                 <state key="normal" title="Display visual Gait Model"/>
+                                <connections>
+                                    <action selector="displayGaitModel" destination="Iyt-f5-sVg" eventType="touchUpInside" id="d4M-Yg-Kvn"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -228,11 +231,27 @@
                         <outlet property="diagnosisLabel" destination="NPm-Re-IGd" id="SHv-il-wFx"/>
                         <outlet property="diagnosisTextView" destination="YuR-SX-HJx" id="EpE-Hc-8Al"/>
                         <outlet property="nameLabel" destination="Gvf-Bn-ZI2" id="JzC-9D-w2G"/>
+                        <segue destination="jGz-jT-rHH" kind="show" identifier="gaitModelSegue" id="v7I-rs-8YZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kyc-HG-Bgg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2042" y="80"/>
+        </scene>
+        <!--Display Gait ModelVC-->
+        <scene sceneID="D7E-kv-oPV">
+            <objects>
+                <viewController id="jGz-jT-rHH" customClass="DisplayGaitModelVC" customModule="SmartWalker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CpC-T2-diS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="LFD-64-Kim"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M4d-9y-Oml" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2822" y="520"/>
         </scene>
         <!--Activity GraphVC-->
         <scene sceneID="vNh-1h-9Lu">
@@ -345,7 +364,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ft3-fp-NLl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2807" y="80"/>
+            <point key="canvasLocation" x="2830" y="-162"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="U2y-0C-REt">

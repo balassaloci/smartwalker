@@ -34,6 +34,8 @@ class ActivityGraphVC: UIViewController {
         getAndDisplayData()
     }
     
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    
     var editingStartDate = true
     var startDate = Calendar.current.date(byAdding: DateComponents(day: -7), to: Date())!
     var endDate = Date()
@@ -48,7 +50,10 @@ class ActivityGraphVC: UIViewController {
         super.viewDidLoad()
         activityGraphView.delegate = self
         activityGraphView.dataSource = self
+        startDateField.text = dateFormatter.string(from: startDate)
+        endDateField.text = dateFormatter.string(from: endDate)
         setupGraphProperties(graph: activityGraphView)
+        LoginVC.addActivityIndicator(activityIndicator: activityIndicator, view: self.view)
         //startDate = Date(timeIntervalSince1970: 1520963265.43)
         //endDate = Date(timeIntervalSince1970: 1520963326.0)
         getAndDisplayData()
@@ -63,9 +68,12 @@ class ActivityGraphVC: UIViewController {
         graph.enableReferenceXAxisLines = true
         graph.enableReferenceYAxisLines = true
         graph.enableReferenceAxisFrame = true
+        graph.colorXaxisLabel = .white
+        graph.colorYaxisLabel = .white
     }
     
     func getAndDisplayData(){
+        activityIndicator.startAnimating()
         PatientDataAPI.shared.getMeasurementsFor(user: patient.id, from: startDate, to: endDate, completion: { measurements, error in
             guard let measurements = measurements, error == nil else {
                 print(error!); return
@@ -73,11 +81,13 @@ class ActivityGraphVC: UIViewController {
             let dailyMeasurementsDict = measurements.reduce(into: [Date:Double](), { accResults, current in
                 accResults[Calendar.current.startOfDay(for: current.timestamp), default: 0] += current.distance
             })
-            let dailyWalkingMeasurements = dailyMeasurementsDict.map({WalkingMeasurement(distance: $0.value, date: $0.key)})
+            let dailyWalkingMeasurements = dailyMeasurementsDict.map({WalkingMeasurement(distance: $0.value/Double(1000), date: $0.key)})
             self.patient.walkingMeasurements = dailyWalkingMeasurements
             self.activityGraphView.reloadGraph()
+            self.activityIndicator.stopAnimating()
         })
     }
+    
 }
 
 extension ActivityGraphVC: BEMSimpleLineGraphDataSource {

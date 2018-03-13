@@ -23,6 +23,7 @@
 		633DF38D20584888000B116D /* PatientDataAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DF38C20584888000B116D /* PatientDataAPI.swift */; };
 		633DF38F205849E3000B116D /* PatientMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DF38E205849E3000B116D /* PatientMeasurement.swift */; };
 		633DF39120585340000B116D /* ActivityGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DF39020585340000B116D /* ActivityGraphVC.swift */; };
+		633DF3932058777A000B116D /* DisplayGaitModelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DF3922058777A000B116D /* DisplayGaitModelVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		633DF38C20584888000B116D /* PatientDataAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDataAPI.swift; sourceTree = "<group>"; };
 		633DF38E205849E3000B116D /* PatientMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientMeasurement.swift; sourceTree = "<group>"; };
 		633DF39020585340000B116D /* ActivityGraphVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityGraphVC.swift; sourceTree = "<group>"; };
+		633DF3922058777A000B116D /* DisplayGaitModelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayGaitModelVC.swift; sourceTree = "<group>"; };
 		89B9B5A3F4755B368D5AAB99 /* Pods_SmartWalker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartWalker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2EDD09B904FF2BF05A711FC /* Pods-SmartWalker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartWalker.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartWalker/Pods-SmartWalker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,6 +87,7 @@
 				631861692057047C009DBA74 /* BridgingHeader.h */,
 				633DF39020585340000B116D /* ActivityGraphVC.swift */,
 				630158AD2034544300F84147 /* AppDelegate.swift */,
+				633DF3922058777A000B116D /* DisplayGaitModelVC.swift */,
 				630158BF203DA0AD00F84147 /* LoginVC.swift */,
 				631861672056F9D5009DBA74 /* GaitModelView.swift */,
 				633DF36820582A91000B116D /* OpenPoseKeyPoint.swift */,
@@ -255,6 +258,7 @@
 				631861662056C99F009DBA74 /* PatientDetailVC.swift in Sources */,
 				630158C4203DA4FB00F84147 /* PatientTableVC.swift in Sources */,
 				633DF36920582A91000B116D /* OpenPoseKeyPoint.swift in Sources */,
+				633DF3932058777A000B116D /* DisplayGaitModelVC.swift in Sources */,
 				630158C2203DA1E000F84147 /* PatientCell.swift in Sources */,
 				630158AE2034544300F84147 /* AppDelegate.swift in Sources */,
 				633DF39120585340000B116D /* ActivityGraphVC.swift in Sources */,
