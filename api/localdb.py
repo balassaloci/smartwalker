@@ -36,6 +36,7 @@ class Sens(db.Entity):
     opose = Optional(str)
     vid_id = Required(str)
     meta = Required(str)
+    processed = Optional(str)
 
 
 db.bind('postgres',
