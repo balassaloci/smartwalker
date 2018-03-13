@@ -14,8 +14,7 @@ class Patient(db.Entity):
 
 class Condition(db.Entity):
 
-    shortname = Required(str)
-    longname = Required(str)
+    name = Required(str)
     description = Required(str)
     events = Set("Event")
 
@@ -36,6 +35,9 @@ class Sens(db.Entity):
     dist = Required(float)
     opose = Optional(str)
     vid_id = Required(str)
+    act = Optional(str)
+    meta = Required(str)
+    processed = Optional(str)
 
 
 db.bind('postgres',
@@ -46,6 +48,19 @@ db.bind('postgres',
 
 db.generate_mapping(create_tables=True)
 
+@db_session
+def create_conditions():
+    norm = Condition(name="Normal", description="The gait looks normal")
+
+    park = Condition(name="Parkinson's disease",description=
+    """Parkinson's disease (PD) is a long-term degenerative disorder of the central nervous system that mainly affects the motor system. The symptoms generally come on slowly over time. Early in the disease, the most obvious are shaking, rigidity, slowness of movement, and difficulty with walking. Thinking and behavioral problems may also occur. Dementia becomes common in the advanced stages of the disease. Depression and anxiety are also common occurring in more than a third of people with PD. Other symptoms include sensory, sleep, and emotional problems. The main motor symptoms are collectively called "parkinsonism", or a "parkinsonian syndrome". (Wikipedia)""")
+
+    more = Condition(name="Haemoweird walk", description="No")
+
+
+if __name__ == "__main__":
+    create_conditions()
+    print(" [x] created conditions")
 
 # @db_session
 # def runsess():
