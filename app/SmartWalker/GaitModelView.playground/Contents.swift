@@ -100,49 +100,50 @@ struct OpenPoseKeyPointsArray: Collection, RandomAccessCollection {
     typealias Element = CGPoint
     typealias Index = OpenPoseKeyPoint
     
-    var keypoints: [Element] = Array<Element>.init(repeating: Element.init(), count: OpenPoseKeyPoint.rawValues.count)
+    var keypointCoordinates: [Element] = Array<Element>.init(repeating: Element.init(), count: OpenPoseKeyPoint.rawValues.count)
     var startIndex: Index {
-        return OpenPoseKeyPoint(rawValue: keypoints.startIndex)!
+        return OpenPoseKeyPoint(rawValue: keypointCoordinates.startIndex)!
     }
     var endIndex: Index {
-        return OpenPoseKeyPoint(rawValue: keypoints.startIndex)!
+        return OpenPoseKeyPoint(rawValue: keypointCoordinates.startIndex)!
     }
     
     subscript (position: Index) -> Element {
         get {
-            return keypoints[position.rawValue]
+            return keypointCoordinates[position.rawValue]
         }
         set {
-            keypoints[position.rawValue] = newValue
+            keypointCoordinates[position.rawValue] = newValue
         }
     }
     
     func index(after i: Index) -> Index {
-        return Index(rawValue: keypoints.index(after: i.rawValue))!
+        return Index(rawValue: keypointCoordinates.index(after: i.rawValue))!
     }
     
     private init(){}
     init?<C:Collection>(_ collection:C) where C.Element == CGPoint, C.Index == Int {
         guard collection.indices.map({$0}) == OpenPoseKeyPoint.rawValues else {return nil}
         for (index, element) in collection.enumerated() {
-            self.keypoints[index] = element
+            self.keypointCoordinates[index] = element
         }
     }
 }
 
 class GaitModelView: UIView {
     
-    var keypointCoordinates = [CGPoint]()
+    var keypoints: OpenPoseKeyPointsArray
     var maxX: CGFloat {
-        return keypointCoordinates.max(by: {$0.x < $1.x})?.x ?? 0
+        return keypoints.keypointCoordinates.max(by: {$0.x < $1.x})?.x ?? 0
     }
     var maxY: CGFloat {
-        return keypointCoordinates.max(by: {$0.y < $1.y})?.y ?? 0
+        return keypoints.keypointCoordinates.max(by: {$0.y < $1.y})?.y ?? 0
     }
     
-    init(with coordinates:[CGPoint]){
+    init?(with coordinates:[CGPoint]){
+        guard let keypointsArray = OpenPoseKeyPointsArray(coordinates) else {return nil}
+        keypoints = keypointsArray
         super.init(frame: CGRect.zero)
-        keypointCoordinates = coordinates
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -152,24 +153,29 @@ class GaitModelView: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         let mapCoordinatesToRect = CGAffineTransform(scaleX: rect.width/maxX, y: rect.height/maxY)
-        for i in keypointCoordinates.indices {
-            keypointCoordinates[i] = keypointCoordinates[i].applying(mapCoordinatesToRect)
+        for i in keypoints.keypointCoordinates.indices {
+            keypoints.keypointCoordinates[i] = keypoints.keypointCoordinates[i].applying(mapCoordinatesToRect)
         }
-        keypointCoordinates
         let pointsPath = UIBezierPath()
         UIColor.blue.setStroke()
         UIColor.blue.setFill()
-        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.RightAnkle.rawValue], ofSize: 5)
-        pointsPath.drawLineAndResetPath(to: keypointCoordinates[OpenPoseKeyPoint.RightKnee.rawValue])
-        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.RightKnee.rawValue], ofSize: 5)
-        pointsPath.drawLineAndResetPath(to: keypointCoordinates[OpenPoseKeyPoint.RightHip.rawValue])
-        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.RightHip.rawValue], ofSize: 5)
-        pointsPath.drawLineAndResetPath(to: keypointCoordinates[OpenPoseKeyPoint.LeftHip.rawValue])
-        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.LeftHip.rawValue], ofSize: 5)
-        pointsPath.drawLineAndResetPath(to: keypointCoordinates[OpenPoseKeyPoint.LeftKnee.rawValue])
-        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.LeftKnee.rawValue], ofSize: 5)
-        pointsPath.drawLineAndResetPath(to: keypointCoordinates[OpenPoseKeyPoint.LeftAnkle.rawValue])
-        pointsPath.drawPoint(at: keypointCoordinates[OpenPoseKeyPoint.LeftAnkle.rawValue], ofSize: 5)
+        keypoints[.RightAnkle]
+        pointsPath.drawPoint(at: keypoints[.RightAnkle], ofSize: 5)
+        keypoints[.RightKnee]
+        pointsPath.drawLineAndResetPath(to: keypoints[.RightKnee])
+        pointsPath.drawPoint(at: keypoints[.RightKnee], ofSize: 5)
+        keypoints[.RightHip]
+        pointsPath.drawLineAndResetPath(to: keypoints[.RightHip])
+        pointsPath.drawPoint(at: keypoints[.RightHip], ofSize: 5)
+        keypoints[.LeftHip]
+        pointsPath.drawLineAndResetPath(to: keypoints[.LeftHip])
+        pointsPath.drawPoint(at: keypoints[.LeftHip], ofSize: 5)
+        keypoints[.LeftKnee]
+        pointsPath.drawLineAndResetPath(to: keypoints[.LeftKnee])
+        pointsPath.drawPoint(at: keypoints[.LeftKnee], ofSize: 5)
+        keypoints[.LeftAnkle]
+        pointsPath.drawLineAndResetPath(to: keypoints[.LeftAnkle])
+        pointsPath.drawPoint(at: keypoints[.LeftAnkle], ofSize: 5)
     }
 }
 
@@ -186,10 +192,20 @@ class OpenPoseKeypointsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //Drawing is fucked up if any of the points are missing
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         // Coordinates should be normalized ([0,1]), so to map them
-        let mapCoordinatesToRect = CGAffineTransform(scaleX: rect.width, y: rect.height)
+        //let mapCoordinatesToRect = CGAffineTransform(scaleX: rect.width, y: rect.height)
+        //Only needed until the points are not normalized
+        var maxX: CGFloat {
+            return keypoints.keypointCoordinates.max(by: {$0.x < $1.x})?.x ?? 0
+        }
+        var maxY: CGFloat {
+            return keypoints.keypointCoordinates.max(by: {$0.y < $1.y})?.y ?? 0
+        }
+        let mapCoordinatesToRect = CGAffineTransform(scaleX: rect.width/maxX, y: rect.height/maxY)
+        // Until needed END
         for i in keypoints.indices {
             keypoints[i] = keypoints[i].applying(mapCoordinatesToRect)
         }
