@@ -18,6 +18,13 @@ class LoginVC: UIViewController {
     
     @IBAction func login() {
         if (usernameField.text == "Doctor" && passwordField.text == "pass") {
+            PatientDataAPI.shared.getConditions(completion: { conditions, error in
+                if let conditions = conditions, error == nil {
+                    GaitCondition.knownConditions = conditions
+                } else {
+                    print(error!)
+                }
+            })
             self.performSegue(withIdentifier: "showPatientsSegue", sender: nil)
         } else {
             let alertController = UIAlertController(title: "Invalid username or password", message: "Please enter a valid username and password", preferredStyle: .alert)
@@ -33,15 +40,10 @@ class LoginVC: UIViewController {
         passwordLabel.textColor = .white
         loginButton.backgroundColor = UIColor(white:255/255,alpha:0.5)
         passwordField.isSecureTextEntry = true
+        usernameField.delegate = self
+        passwordField.delegate = self
         loginButton.layer.cornerRadius = loginButton.frame.height/3
         loginButton.clipsToBounds = true
-        PatientDataAPI.shared.getConditions(completion: { conditions, error in
-            if let conditions = conditions, error == nil {
-                GaitCondition.knownConditions = conditions
-            } else {
-                print(error!)
-            }
-        })
     }
     
     /**
@@ -59,5 +61,11 @@ class LoginVC: UIViewController {
         let verticalConstraint = NSLayoutConstraint(item: activityIndicator, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0)
         view.addConstraint(verticalConstraint)
     }
+}
 
+extension LoginVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

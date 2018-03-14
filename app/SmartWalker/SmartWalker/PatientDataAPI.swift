@@ -66,10 +66,35 @@ class PatientDataAPI {
             }
         }).resume()
     }
+    
+    func getLastDiagnosis(completion: @escaping(DiagnosticEvent?,Error?)->()){
+        let getLastDiagnosisUrl = URL(string: "\(baseUrl)/getLastEvent/1")!
+        URLSession.shared.dataTask(with: getLastDiagnosisUrl, completionHandler: { data, response, error in
+            guard let data = data, error == nil else {
+                DispatchQueue.main.async {
+                    completion(nil,error)
+                }
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .formatted(PatientMeasurement.dateFormatter)
+                let diagnosticEvent = try decoder.decode(DiagnosticEvent.self, from: data)
+                DispatchQueue.main.async {
+                    completion(diagnosticEvent, nil)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(nil,error)
+                }
+            }
+        }).resume()
+    }
 }
 
 enum APIErrors: Error {
     case invalidURL(String)
     case invalidGripMeasurement
     case invalidPoseMeasurement
+    case invalidDiagnosisValue(Int)
 }

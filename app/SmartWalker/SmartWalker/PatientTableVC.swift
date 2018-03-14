@@ -9,6 +9,9 @@
 import UIKit
 
 class PatientTableVC: UITableViewController {
+    
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    
     let patients = [Patient(name: "John Smith", nhsNumber: 9876544321, birthday: Calendar.current.date(from: DateComponents(year: 1932))!, description: "Parkinsonian Gait", diagnosis: GaitDiagnosis.parkinsonian),
                     Patient(name: "Margaret Carpenter", nhsNumber: 9826544371, birthday: Calendar.current.date(from: DateComponents(year: 1940))!, description: "Normal gait"),
                     Patient(name: "Elizabeth Donnelly", nhsNumber: 9926584370, birthday: Calendar.current.date(from: DateComponents(year: 1950))!, description: "Hemiglephic gait",diagnosis: GaitDiagnosis.hemiplegic),
@@ -18,6 +21,7 @@ class PatientTableVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        LoginVC.addActivityIndicator(activityIndicator: activityIndicator, view: self.view)
     }
 
     // MARK: - Table view data source
@@ -43,7 +47,18 @@ class PatientTableVC: UITableViewController {
     // MARK: - Table view delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "patientDetailSegue", sender: patients[indexPath.row])
+        activityIndicator.startAnimating()
+        PatientDataAPI.shared.getLastDiagnosis(completion: { diagnosticEvent, error in
+            var patient = self.patients[indexPath.row]
+            if let diagnosticEvent = diagnosticEvent, error == nil {
+                patient.diagnosticEvent = diagnosticEvent
+                patient.diagnosis = diagnosticEvent.diagnosis
+            } else {
+                print(error!)
+            }
+            self.activityIndicator.stopAnimating()
+            self.performSegue(withIdentifier: "patientDetailSegue", sender: patient)
+        })
     }
 
     // MARK: - Navigation

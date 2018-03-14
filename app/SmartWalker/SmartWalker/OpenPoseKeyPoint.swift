@@ -85,7 +85,8 @@ struct OpenPoseKeyPointsArray: Collection, RandomAccessCollection {
     
     private init(){}
     init<C:Collection>(_ collection:C) throws where C.Element == CGPoint, C.Index == Int {
-        guard collection.indices.map({$0}) == OpenPoseKeyPoint.rawValues else { throw APIErrors.invalidPoseMeasurement }
+        guard collection.indices.map({$0}) == OpenPoseKeyPoint.rawValues else {
+            throw APIErrors.invalidPoseMeasurement }
         for (index, element) in collection.enumerated() {
             keypointCoordinates[index] = element
         }

@@ -54,8 +54,8 @@ class ActivityGraphVC: UIViewController {
         endDateField.text = dateFormatter.string(from: endDate)
         setupGraphProperties(graph: activityGraphView)
         LoginVC.addActivityIndicator(activityIndicator: activityIndicator, view: self.view)
-        //startDate = Date(timeIntervalSince1970: 1520963265.43)
-        //endDate = Date(timeIntervalSince1970: 1520963326.0)
+        startDateField.inputView = UIView(frame: CGRect.zero)
+        endDateField.inputView = UIView(frame: CGRect.zero)
         getAndDisplayData()
     }
     
@@ -76,7 +76,9 @@ class ActivityGraphVC: UIViewController {
         activityIndicator.startAnimating()
         PatientDataAPI.shared.getMeasurementsFor(user: patient.id, from: startDate, to: endDate, completion: { measurements, error in
             guard let measurements = measurements, error == nil else {
-                print(error!); return
+                self.activityIndicator.stopAnimating()
+                print(error!)
+                return
             }
             let dailyMeasurementsDict = measurements.reduce(into: [Date:Double](), { accResults, current in
                 accResults[Calendar.current.startOfDay(for: current.timestamp), default: 0] += current.distance
@@ -101,7 +103,7 @@ extension ActivityGraphVC: BEMSimpleLineGraphDataSource {
     
     func lineGraph(_ graph: BEMSimpleLineGraphView, labelOnXAxisFor index: UInt) -> String? {
         let df = DateFormatter()
-        df.dateFormat = "MM-dd"
+        df.dateFormat = "MM/dd"
         return df.string(from: patient.walkingMeasurements[Int(index)].date)
     }
 }

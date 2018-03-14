@@ -18,10 +18,14 @@ class PatientDetailVC: UIViewController {
     @IBOutlet weak var diagnosisTextView: UITextView!
     @IBAction func displayGaitModel() {
         activityIndicator.startAnimating()
-        PatientDataAPI.shared.getMeasurementsFor(user: patient.id, from: Calendar.current.date(byAdding: DateComponents(day: -1), to: Date())!, to: Date(), completion: { measurements, error in
+        let startDate = patient.diagnosticEvent?.startOfEvent ?? Calendar.current.date(byAdding: DateComponents(day: -1), to: Date())!
+        let endDate = patient.diagnosticEvent?.endOfEvent ?? Date()
+        print(patient.diagnosticEvent)
+        PatientDataAPI.shared.getMeasurementsFor(user: patient.id, from: startDate, to: endDate, completion: { measurements, error in
             guard let measurements = measurements, error == nil else {
                 print(error!); return
             }
+            //print(measurements)
             let measurementsWithPose = measurements.flatMap({ measurement -> OpenPoseKeyPointsArray? in
                 guard var keypoints = measurement.pose else { return nil }
                 if keypoints[OpenPoseKeyPoint.LeftHip] == CGPoint(x: 0, y: 0) && keypoints[.RightHip] == CGPoint(x: 0, y: 0) {
@@ -37,6 +41,7 @@ class PatientDetailVC: UIViewController {
                 return keypoints
             })
             self.activityIndicator.stopAnimating()
+            print(measurementsWithPose)
             self.performSegue(withIdentifier: self.displayGaitModelSegue, sender: measurementsWithPose)
         })
     }
@@ -49,6 +54,9 @@ class PatientDetailVC: UIViewController {
         super.viewDidLoad()
         nameLabel.text = patient.name
         if let diagnosis = patient.diagnosis {
+            if let confidence = patient.diagnosticEvent?.confidence {
+                diagnosisLabel.text = "\(GaitCondition.knownConditions[diagnosis.rawValue].name) - \(confidence*100)%"
+            }
             diagnosisLabel.text = GaitCondition.knownConditions[diagnosis.rawValue].name
             diagnosisTextView.text = GaitCondition.knownConditions[diagnosis.rawValue].description
         }
@@ -60,7 +68,6 @@ class PatientDetailVC: UIViewController {
         if segue.identifier == "showActivitySegue", let destination = segue.destination as? ActivityGraphVC {
             destination.patient = patient
         } else if segue.identifier == displayGaitModelSegue, let destination = segue.destination as? DisplayGaitModelVC, let keypoints = sender as? [OpenPoseKeyPointsArray] /*OpenPoseKeyPointsArray*/ {
-            //destination.keypoints = keypoints
             destination.keypointsTimeline = keypoints
         }
     }

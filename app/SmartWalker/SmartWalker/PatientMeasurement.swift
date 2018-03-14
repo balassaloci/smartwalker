@@ -39,7 +39,8 @@ struct PatientMeasurement: Decodable {
         do {
             pose = try values.decode(OpenPoseKeyPointsArray.self, forKey: .pose)
         } catch {
-            //print("Pose empty, id: \(id)")
+            print("Pose empty, id: \(id)")
+            print(error)
             pose = nil
         }
         timestamp = try values.decode(Date.self, forKey: .timestamp)

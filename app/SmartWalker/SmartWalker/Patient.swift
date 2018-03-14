@@ -15,6 +15,7 @@ struct Patient {
     let birthday:Date
     let description:String
     var diagnosis:GaitDiagnosis?
+    var diagnosticEvent:DiagnosticEvent?
     var walkingMeasurements:[WalkingMeasurement]
     
     var ageInYears:String {
@@ -30,6 +31,7 @@ struct Patient {
         self.description = description
         self.diagnosis = diagnosis
         self.walkingMeasurements = walkingMeasurements
+        self.diagnosticEvent = nil
     }
 }
 
@@ -48,4 +50,27 @@ struct GaitCondition: Decodable {
 struct WalkingMeasurement {
     let distance:Double
     let date:Date
+}
+
+struct DiagnosticEvent: Decodable {
+    let confidence:Double
+    let diagnosis: GaitDiagnosis
+    let startOfEvent:Date
+    let endOfEvent:Date
+    
+    private enum CodingKeys: String, CodingKey {
+        case confidence, diagnosis, startOfEvent = "measurement_from", endOfEvent = "measurement_to"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.confidence = try container.decode(Double.self, forKey: .confidence)
+        self.startOfEvent = try container.decode(Date.self, forKey: .startOfEvent)
+        self.endOfEvent = try container.decode(Date.self, forKey: .endOfEvent)
+        let diagnosisRawValue = try container.decode(Int.self, forKey: .diagnosis)
+        guard let diagnosis = GaitDiagnosis(rawValue: diagnosisRawValue) else {
+            throw APIErrors.invalidDiagnosisValue(diagnosisRawValue)
+        }
+        self.diagnosis = diagnosis
+    }
 }
