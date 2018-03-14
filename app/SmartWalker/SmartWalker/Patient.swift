@@ -33,8 +33,16 @@ struct Patient {
     }
 }
 
-enum GaitDiagnosis: String {
-    case parkinsonian, normal
+enum GaitDiagnosis: Int {
+    case normal, parkinsonian, hemiplegic
+}
+
+struct GaitCondition: Decodable {
+    let name:String
+    let id:Int
+    let description:String
+    
+    static var knownConditions = [GaitCondition]()
 }
 
 struct WalkingMeasurement {

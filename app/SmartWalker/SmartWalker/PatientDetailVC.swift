@@ -18,18 +18,25 @@ class PatientDetailVC: UIViewController {
     @IBOutlet weak var diagnosisTextView: UITextView!
     @IBAction func displayGaitModel() {
         activityIndicator.startAnimating()
-        PatientDataAPI.shared.getMeasurementsFor(user: patient.id, from: Calendar.current.date(byAdding: DateComponents(day: -7), to: Date())!, to: Date(), completion: { measurements, error in
+        PatientDataAPI.shared.getMeasurementsFor(user: patient.id, from: Calendar.current.date(byAdding: DateComponents(day: -1), to: Date())!, to: Date(), completion: { measurements, error in
             guard let measurements = measurements, error == nil else {
                 print(error!); return
             }
-            /*
-            guard let mostRecentModel = measurements.first(where: {$0.pose != nil})?.pose else {
-                print("No keypoints measurement in the last 7 days"); return
-            }
-            */
-            let measurementsWithPose = measurements.flatMap({$0.pose})
+            let measurementsWithPose = measurements.flatMap({ measurement -> OpenPoseKeyPointsArray? in
+                guard var keypoints = measurement.pose else { return nil }
+                if keypoints[OpenPoseKeyPoint.LeftHip] == CGPoint(x: 0, y: 0) && keypoints[.RightHip] == CGPoint(x: 0, y: 0) {
+                    return nil
+                }
+                // Ankle should never be above Knee, if it is, it probably wasn't recognised, so just copy Knee to Ankle
+                if keypoints[.LeftAnkle].y < keypoints[.LeftKnee].y {
+                    keypoints[.LeftAnkle] = keypoints[.LeftKnee]
+                }
+                if keypoints[.RightAnkle].y < keypoints[.RightKnee].y {
+                    keypoints[.RightAnkle] = keypoints[.RightKnee]
+                }
+                return keypoints
+            })
             self.activityIndicator.stopAnimating()
-            //self.performSegue(withIdentifier: self.displayGaitModelSegue, sender: mostRecentModel)
             self.performSegue(withIdentifier: self.displayGaitModelSegue, sender: measurementsWithPose)
         })
     }
@@ -41,7 +48,10 @@ class PatientDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         nameLabel.text = patient.name
-        diagnosisLabel.text = patient.diagnosis?.rawValue
+        if let diagnosis = patient.diagnosis {
+            diagnosisLabel.text = GaitCondition.knownConditions[diagnosis.rawValue].name
+            diagnosisTextView.text = GaitCondition.knownConditions[diagnosis.rawValue].description
+        }
         patient.walkingMeasurements = [WalkingMeasurement(distance: 123, date: Date().addingTimeInterval(-6*24*3600)), WalkingMeasurement(distance: 532.4, date: Date().addingTimeInterval(-5*24*3600)), WalkingMeasurement(distance: 623, date: Date().addingTimeInterval(-4*24*3600)), WalkingMeasurement(distance: 324.5, date: Date().addingTimeInterval(-3*24*3600)), WalkingMeasurement(distance: 135, date: Date().addingTimeInterval(-2*24*3600)), WalkingMeasurement(distance: 598, date: Date().addingTimeInterval(-1*24*3600)), WalkingMeasurement(distance: 222.3, date: Date())]
         LoginVC.addActivityIndicator(activityIndicator: activityIndicator, view: self.view)
     }

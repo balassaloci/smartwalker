@@ -41,7 +41,7 @@
                                 <rect key="frame" x="57" y="386" width="262.5" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G1x-gG-gqH">
                                 <rect key="frame" x="166" y="587" width="42" height="30"/>
@@ -172,22 +172,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gvf-Bn-ZI2">
-                                <rect key="frame" x="37.5" y="64" width="300" height="21"/>
+                                <rect key="frame" x="37.5" y="84" width="300" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parkinsonian gait" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPm-Re-IGd">
-                                <rect key="frame" x="122" y="105" width="130.5" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Normal" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPm-Re-IGd">
+                                <rect key="frame" x="159.5" y="125" width="55.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YuR-SX-HJx">
-                                <rect key="frame" x="18.5" y="136" width="337.5" height="361"/>
+                                <rect key="frame" x="18.5" y="156" width="337.5" height="341"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Whereas in normal gait, the heel strikes the ground before the toes (also called heel-to-toe walking), in Parkinsonian gait, motion is characterised by flat foot strike (where the entire foot is placed on the ground at the same time) or less often and in the more advanced stages of the disease by toe-to-heel walking (where the toes touch the ground before the heel). In addition, PD patients have reduced foot lifting during the swing phase of gait, which produces smaller clearance between the toes and the ground.
-
+                                <string key="text">No gait abnormality diagnosed
 </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -211,7 +210,7 @@
                         <constraints>
                             <constraint firstItem="V65-s2-jHq" firstAttribute="bottom" secondItem="UW1-Pw-QOk" secondAttribute="bottom" constant="50" id="9Cg-Eh-AIm"/>
                             <constraint firstItem="NPm-Re-IGd" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="JWE-A7-7U7"/>
-                            <constraint firstItem="Gvf-Bn-ZI2" firstAttribute="top" secondItem="V65-s2-jHq" secondAttribute="top" id="KfE-FM-3jl"/>
+                            <constraint firstItem="Gvf-Bn-ZI2" firstAttribute="top" secondItem="V65-s2-jHq" secondAttribute="top" constant="20" id="KfE-FM-3jl"/>
                             <constraint firstItem="UW1-Pw-QOk" firstAttribute="top" secondItem="gn6-1t-kHs" secondAttribute="bottom" constant="30" id="Uwq-5z-VMD"/>
                             <constraint firstItem="gn6-1t-kHs" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="Xxx-Ww-UDz"/>
                             <constraint firstItem="YuR-SX-HJx" firstAttribute="centerX" secondItem="V65-s2-jHq" secondAttribute="centerX" id="bgO-RH-cKF"/>

@@ -9,10 +9,10 @@
 import UIKit
 
 class PatientTableVC: UITableViewController {
-    let patients = [Patient(name: "John Smith", nhsNumber: 9876544321, birthday: Calendar.current.date(from: DateComponents(year: 1932))!, description: "Ataxic Gait"),
-                    Patient(name: "Margaret Carpenter", nhsNumber: 9826544371, birthday: Calendar.current.date(from: DateComponents(year: 1940))!, description: "Sensory gait"),
-                    Patient(name: "Elizabeth Donnelly", nhsNumber: 9926584370, birthday: Calendar.current.date(from: DateComponents(year: 1950))!, description: "Non-clinical shuffle"),
-                    Patient(name: "Jack Brown", nhsNumber: 9836574321, birthday: Calendar.current.date(from: DateComponents(year: 1923))!, description: "Brisk walk"),
+    let patients = [Patient(name: "John Smith", nhsNumber: 9876544321, birthday: Calendar.current.date(from: DateComponents(year: 1932))!, description: "Parkinsonian Gait", diagnosis: GaitDiagnosis.parkinsonian),
+                    Patient(name: "Margaret Carpenter", nhsNumber: 9826544371, birthday: Calendar.current.date(from: DateComponents(year: 1940))!, description: "Normal gait"),
+                    Patient(name: "Elizabeth Donnelly", nhsNumber: 9926584370, birthday: Calendar.current.date(from: DateComponents(year: 1950))!, description: "Hemiglephic gait",diagnosis: GaitDiagnosis.hemiplegic),
+                    Patient(name: "Jack Brown", nhsNumber: 9836574321, birthday: Calendar.current.date(from: DateComponents(year: 1923))!, description: "Normal gait"),
                     Patient(name: "James McBride", nhsNumber: 9134548328, birthday: Calendar.current.date(from: DateComponents(year: 1946))!, description: "Parkinsonian Gait")
     ]
 

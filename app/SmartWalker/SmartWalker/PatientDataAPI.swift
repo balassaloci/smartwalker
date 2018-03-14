@@ -43,6 +43,29 @@ class PatientDataAPI {
             }
         }).resume()
     }
+    
+    func getConditions(completion: @escaping([GaitCondition]?, Error?)->()){
+        let getConditionsUrl = URL(string: "\(baseUrl)/getConditions")!
+        URLSession.shared.dataTask(with: getConditionsUrl, completionHandler: { data, response, error in
+            guard let data = data, error == nil else {
+                DispatchQueue.main.async {
+                    completion(nil,error)
+                }
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let conditions = try decoder.decode([GaitCondition].self, from: data)
+                DispatchQueue.main.async {
+                    completion(conditions, nil)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(nil,error)
+                }
+            }
+        }).resume()
+    }
 }
 
 enum APIErrors: Error {

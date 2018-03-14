@@ -12,6 +12,7 @@ class GaitModelView: UIView {
     var keypoints: OpenPoseKeyPointsArray
     
     var drawingColor = UIColor.blue
+    var lineWidth: CGFloat = 2.0
     
     init?(with coordinates:[CGPoint]){
         guard let keypointsArray = try? OpenPoseKeyPointsArray(coordinates) else {return nil}
@@ -35,6 +36,7 @@ class GaitModelView: UIView {
             keypoints.keypointCoordinates[i] = keypoints.keypointCoordinates[i].applying(mapCoordinatesToRect)
         }
         let pointsPath = UIBezierPath()
+        pointsPath.lineWidth = lineWidth
         drawingColor.setStroke()
         drawingColor.setFill()
         pointsPath.drawPoint(at: keypoints[.RightAnkle], ofSize: 5)

@@ -9,16 +9,10 @@
 import UIKit
 
 class DisplayGaitModelVC: UIViewController {
-    //var keypoints: OpenPoseKeyPointsArray!
     var keypointsTimeline: [OpenPoseKeyPointsArray]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
-        let gaitModelView = GaitModelView(with: keypoints)
-        gaitModelView.backgroundColor = .white
-        self.view = gaitModelView
-        */
         let gaitModelImageView = UIImageView()
         gaitModelImageView.animationImages = keypointsTimeline.map({ keypoints -> UIImage in
             let gaitModelView = GaitModelView(with: keypoints)
@@ -26,7 +20,7 @@ class DisplayGaitModelVC: UIViewController {
             gaitModelView.frame = self.view.frame
             return UIImage(view: gaitModelView)
         })
-        gaitModelImageView.animationDuration = 1
+        gaitModelImageView.animationDuration = Double(keypointsTimeline.count)/15
         self.view = gaitModelImageView
         gaitModelImageView.startAnimating()
     }

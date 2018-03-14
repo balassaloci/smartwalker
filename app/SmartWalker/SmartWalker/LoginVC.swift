@@ -17,7 +17,13 @@ class LoginVC: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     
     @IBAction func login() {
-        self.performSegue(withIdentifier: "showPatientsSegue", sender: nil)
+        if (usernameField.text == "Doctor" && passwordField.text == "pass") {
+            self.performSegue(withIdentifier: "showPatientsSegue", sender: nil)
+        } else {
+            let alertController = UIAlertController(title: "Invalid username or password", message: "Please enter a valid username and password", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     override func viewDidLoad() {
@@ -26,10 +32,16 @@ class LoginVC: UIViewController {
         usernameLabel.textColor = .white
         passwordLabel.textColor = .white
         loginButton.backgroundColor = UIColor(white:255/255,alpha:0.5)
-        /*
+        passwordField.isSecureTextEntry = true
         loginButton.layer.cornerRadius = loginButton.frame.height/3
         loginButton.clipsToBounds = true
-         */
+        PatientDataAPI.shared.getConditions(completion: { conditions, error in
+            if let conditions = conditions, error == nil {
+                GaitCondition.knownConditions = conditions
+            } else {
+                print(error!)
+            }
+        })
     }
     
     /**
