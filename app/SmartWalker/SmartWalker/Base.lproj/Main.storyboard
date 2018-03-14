@@ -237,7 +237,7 @@
             </objects>
             <point key="canvasLocation" x="2042" y="80"/>
         </scene>
-        <!--Display Gait ModelVC-->
+        <!--Gait Model-->
         <scene sceneID="D7E-kv-oPV">
             <objects>
                 <viewController id="jGz-jT-rHH" customClass="DisplayGaitModelVC" customModule="SmartWalker" customModuleProvider="target" sceneMemberID="viewController">
@@ -247,6 +247,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="LFD-64-Kim"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Gait Model" id="y25-oj-Pc0">
+                        <barButtonItem key="rightBarButtonItem" systemItem="pause" id="s7i-EY-IY1">
+                            <connections>
+                                <action selector="playPause:" destination="jGz-jT-rHH" id="SSK-CT-BJc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="playPauseButton" destination="s7i-EY-IY1" id="DpS-UK-J4c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4d-9y-Oml" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

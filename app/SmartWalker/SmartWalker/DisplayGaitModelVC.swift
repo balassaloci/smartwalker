@@ -9,11 +9,22 @@
 import UIKit
 
 class DisplayGaitModelVC: UIViewController {
+    @IBOutlet weak var playPauseButton: UIBarButtonItem!
+    @IBAction func playPause(_ sender: UIBarButtonItem) {
+        if gaitModelImageView.isAnimating {
+            //gaitModelImageView.stopAnimating()
+            //playPauseButton =
+        } else {
+            //gaitModelImageView.stopAnimating()
+        }
+    }
     var keypointsTimeline: [OpenPoseKeyPointsArray]!
+    let gaitModelImageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let gaitModelImageView = UIImageView()
+        //Loading too many images would lead to memory issues
+        keypointsTimeline = keypointsTimeline.count > 50 ? Array(keypointsTimeline[0..<25]) : keypointsTimeline
         gaitModelImageView.animationImages = keypointsTimeline.map({ keypoints -> UIImage in
             let gaitModelView = GaitModelView(with: keypoints)
             gaitModelView.backgroundColor = .white
