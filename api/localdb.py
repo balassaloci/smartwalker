@@ -23,6 +23,8 @@ class Event(db.Entity):
 
     patient = Required(Patient)
     timestamp = Required(datetime)
+    measurement_from = Optional(datetime)
+    measurement_to = Optional(datetime)
     confidence = Required(float)
     diagnosis = Required(Condition)
 
@@ -35,6 +37,7 @@ class Sens(db.Entity):
     dist = Required(float)
     opose = Optional(str)
     vid_id = Required(str)
+    act = Optional(str)
     meta = Required(str)
     processed = Optional(str)
 
@@ -42,8 +45,8 @@ class Sens(db.Entity):
 db.bind('postgres',
         user='postgres',
         password='postgres',
-        host='192.168.99.100',
-        port='32768')
+        host='localhost',
+        port='5432')
 
 db.generate_mapping(create_tables=True)
 
@@ -57,9 +60,16 @@ def create_conditions():
 
     more = Condition(name="Haemoweird walk", description="No")
 
+@db_session
+def create_patients():
+    josh = Patient(name="Joshua Brown", birthdate='1996-05-03 00:00')
+    loci = Patient(name="Lorinc Balassa", birthdate='1995-02-01 00:00')
+    david= Patient(name="David Pasztor", birthdate='1995-10-15 00:00')
+
 
 if __name__ == "__main__":
-    create_conditions()
+    # create_conditions()
+    create_patients()
     print(" [x] created conditions")
 
 # @db_session
