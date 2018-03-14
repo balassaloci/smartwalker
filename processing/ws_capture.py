@@ -8,9 +8,10 @@ import json
 from websocket import create_connection
 import throttler
 #import sensor_reader as sr
-import sensor_reader_mock as sr
+import sensor_reader as sr
 import datetime
 import async_uploader as uploader
+from scipy import ndimage
 
 cam = cv2.VideoCapture(0)
 
@@ -19,7 +20,10 @@ cam = cv2.VideoCapture(0)
 # SERVER_URL = "ws://localhost:8000/"
 # SERVER_URL = "ws://52.201.220.72:8000/"
 
-act = "h"
+act = "test_xy"
+reclen = 5
+recrepeat = 1
+delaybetween = 10
 
 # lasttime = time.time()
 # framedelay = 0.1
@@ -56,6 +60,7 @@ def captureAndSend(period):
         # print(" [x] cap frame")
 
         frame = frame[0:720, 280:1000] # crop 720x720 mid
+        #frame = ndimage.rotate(frame, 90)
 
         # frame = frame[0:720, 280:1000] # crop 720x720 mid
 
@@ -161,15 +166,18 @@ def captureAndSend(period):
 
         #print(" [x] Response received in %f" % tResp)
 
+    time.sleep(delaybetween)
 
-for _ in range(1):
+
+for _ in range(recrepeat):
     print("")
     print(" [-] Running capture and send")
-    captureAndSend(3)
+    captureAndSend(reclen)
 
 # Release everything if job is finished
 cam.release()
 cv2.destroyAllWindows()
+uploader.q.join()
 
 quit()
 ##############################################
