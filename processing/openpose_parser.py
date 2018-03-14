@@ -39,9 +39,6 @@ def drawOn(img, points, clr):
             draw.ellipse([(point[0]-r, point[1]-r), (point[0] + r, point[1] + r)],
                         fill=clr, outline=clr)
 
-    # draw.ellipse([(100, 100), (120, 120)], fill="#00FF00", outline="#00FF00")
-    # draw.line((0, 0) + img.size, fill=128)
-    # draw.line((0, img.size[1], img.size[0], 0), fill=128)
     del draw
 
     return img

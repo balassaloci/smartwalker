@@ -14,9 +14,8 @@ def worker():
         item = q.get()
         ws.send(item)
 
-        #time.sleep(5)
         print(" [x] Websocket: Sent")
-        resp = ws.recv()
+        resp = ws.recv() # wait for response (server signals done)
 
         print(" [x] Websocket: Response received")
         q.task_done()
@@ -34,10 +33,3 @@ def upload(item):
     q.put(item)
 
 
-#def upload(item):
-#
-#    print(" [x] Websocket: Starting to send")
-#    ws.send(item)
-#    print(" [x] Websocket: Sent")
-#    resp = ws.recv()
-#    print(" [x] Websocket: Response received")
