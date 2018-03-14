@@ -5,22 +5,25 @@ from pony.orm import *
 import localdb as db
 import Queue
 import threading
-
+import open_parser as parser
+import json
+import ml_processor as ml_processor
 
 OPENPOSEPATH = "openpose/bin/OpenPoseDemo.exe"
 
 def __runopenpose__(vid_id):
     # cmd = OPENPOSEPATH + " -video tmp/vid_rec_" + vid_id + ".mp4 -write_json tmp/json_" + vid_id + "/"
     cmd = "bin\\OpenPoseDemo.exe" + " -video ..\\tmp\\vid_rec_" + vid_id + ".mp4 -write_json ..\\tmp\\json_" + vid_id + "\\"
+    cmd += " -net_resolution -1x128"
 
-    cmd = "sleep 2"
+    # cmd = "sleep 2"
 
     print(cmd)
 
-    #os.chdir("openpose")
+    os.chdir("openpose")
     process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
-    #os.chdir("..\\")
+    os.chdir("..\\")
 
     if error is None:
         print("No error, removing original video file")
@@ -45,10 +48,13 @@ def __run__(vid_id):
 
     dbentries = select(c for c in db.Sens if c.vid_id==vid_id).order_by(db.Sens.id)[:]
 
-    for x in range(len(min(frames, dbentries))):
+    for x in range(min(len(frames), len(dbentries))):
         with open("tmp\\json_" + vid_id + "\\" + frames[x], 'rb') as f:
             frame = f.read()
             dbentries[x].opose = frame
+            scale = 1.0 / json.loads(dbentries[x].meta)["width"]
+            parsedframe = parser.parse(frame, scale)
+            dbentries[x].processed = json.dumps(parsedframe)
 
         # break
 
@@ -74,11 +80,12 @@ def run(vid_id):
 def run(vid_id):
     __run__(vid_id)
 
+    ml_processor.q.put(vid_id) # Run ml on this
+
 if __name__ == "__main__":
-    run("1520895486.49")
-    run("1520895486.49")
-    run("1520895486.49")
-    run("1520895486.49")
+
+    run("1520954006.61")
+
     while True:
         print("i'm alive")
         time.sleep(1)
