@@ -20,29 +20,20 @@ class PatientDetailVC: UIViewController {
         activityIndicator.startAnimating()
         let startDate = patient.diagnosticEvent?.startOfEvent ?? Calendar.current.date(byAdding: DateComponents(day: -1), to: Date())!
         let endDate = patient.diagnosticEvent?.endOfEvent ?? Date()
-        print(patient.diagnosticEvent)
         PatientDataAPI.shared.getMeasurementsFor(user: patient.id, from: startDate, to: endDate, completion: { measurements, error in
             guard let measurements = measurements, error == nil else {
                 print(error!); return
             }
-            //print(measurements)
-            let measurementsWithPose = measurements.flatMap({ measurement -> OpenPoseKeyPointsArray? in
-                guard var keypoints = measurement.pose else { return nil }
-                if keypoints[OpenPoseKeyPoint.LeftHip] == CGPoint(x: 0, y: 0) && keypoints[.RightHip] == CGPoint(x: 0, y: 0) {
-                    return nil
-                }
-                // Ankle should never be above Knee, if it is, it probably wasn't recognised, so just copy Knee to Ankle
-                if keypoints[.LeftAnkle].y < keypoints[.LeftKnee].y {
-                    keypoints[.LeftAnkle] = keypoints[.LeftKnee]
-                }
-                if keypoints[.RightAnkle].y < keypoints[.RightKnee].y {
-                    keypoints[.RightAnkle] = keypoints[.RightKnee]
-                }
-                return keypoints
-            })
+            let measurementsWithPose = PatientDataAPI.shared.measurementsWithKeypoints(measurements)
             self.activityIndicator.stopAnimating()
-            print(measurementsWithPose)
-            self.performSegue(withIdentifier: self.displayGaitModelSegue, sender: measurementsWithPose)
+            if measurementsWithPose.count > 0 {
+                self.performSegue(withIdentifier: self.displayGaitModelSegue, sender: measurementsWithPose)
+            } else {
+                print("No pose measurements for event")
+                let alertController = UIAlertController(title: "No gait model available", message: "There is no gait model available at the moment, please try again later", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }
         })
     }
     
@@ -54,11 +45,14 @@ class PatientDetailVC: UIViewController {
         super.viewDidLoad()
         nameLabel.text = patient.name
         if let diagnosis = patient.diagnosis {
+            print(patient.diagnosticEvent as Any)
+            let condition = GaitCondition.knownConditions[diagnosis.rawValue-1]
             if let confidence = patient.diagnosticEvent?.confidence {
-                diagnosisLabel.text = "\(GaitCondition.knownConditions[diagnosis.rawValue].name) - \(confidence*100)%"
+                diagnosisLabel.text = "\(condition.name) - \(confidence*100)%"
+            } else {
+                diagnosisLabel.text = condition.name
             }
-            diagnosisLabel.text = GaitCondition.knownConditions[diagnosis.rawValue].name
-            diagnosisTextView.text = GaitCondition.knownConditions[diagnosis.rawValue].description
+            diagnosisTextView.text = condition.description
         }
         patient.walkingMeasurements = [WalkingMeasurement(distance: 123, date: Date().addingTimeInterval(-6*24*3600)), WalkingMeasurement(distance: 532.4, date: Date().addingTimeInterval(-5*24*3600)), WalkingMeasurement(distance: 623, date: Date().addingTimeInterval(-4*24*3600)), WalkingMeasurement(distance: 324.5, date: Date().addingTimeInterval(-3*24*3600)), WalkingMeasurement(distance: 135, date: Date().addingTimeInterval(-2*24*3600)), WalkingMeasurement(distance: 598, date: Date().addingTimeInterval(-1*24*3600)), WalkingMeasurement(distance: 222.3, date: Date())]
         LoginVC.addActivityIndicator(activityIndicator: activityIndicator, view: self.view)

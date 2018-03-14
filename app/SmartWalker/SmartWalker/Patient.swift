@@ -36,7 +36,7 @@ struct Patient {
 }
 
 enum GaitDiagnosis: Int {
-    case normal, parkinsonian, hemiplegic
+    case normal = 1, parkinsonian, hemiplegic, limpingRight
 }
 
 struct GaitCondition: Decodable {

@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import CoreGraphics
 
 class PatientDataAPI {
     static let shared = PatientDataAPI()
     private init(){}
     
-    private let baseUrl = "http://35.153.226.7:8080"
+    private let baseUrl = "http://34.224.3.38:8080"
     
     func getMeasurementsFor(user userId:Int, from startDate:Date,to endDate:Date, completion: @escaping ([PatientMeasurement]?,Error?)->()){
         let getMeasurementsUrlString = "\(baseUrl)/getMeasurements/\(userId)/\(startDate.timeIntervalSince1970)/\(endDate.timeIntervalSince1970)"
@@ -42,6 +43,24 @@ class PatientDataAPI {
                 }
             }
         }).resume()
+    }
+    
+    func measurementsWithKeypoints(_ measurements: [PatientMeasurement])->[OpenPoseKeyPointsArray] {
+        let measurementsWithPose = measurements.flatMap({ measurement -> OpenPoseKeyPointsArray? in
+            guard var keypoints = measurement.pose else { return nil }
+            if keypoints[OpenPoseKeyPoint.LeftHip] == CGPoint(x: 0, y: 0) && keypoints[.RightHip] == CGPoint(x: 0, y: 0) {
+                return nil
+            }
+            // Ankle should never be above Knee, if it is, it probably wasn't recognised, so just copy Knee to Ankle
+            if keypoints[.LeftAnkle].y < keypoints[.LeftKnee].y {
+                keypoints[.LeftAnkle] = keypoints[.LeftKnee]
+            }
+            if keypoints[.RightAnkle].y < keypoints[.RightKnee].y {
+                keypoints[.RightAnkle] = keypoints[.RightKnee]
+            }
+            return keypoints
+        })
+        return measurementsWithPose
     }
     
     func getConditions(completion: @escaping([GaitCondition]?, Error?)->()){
