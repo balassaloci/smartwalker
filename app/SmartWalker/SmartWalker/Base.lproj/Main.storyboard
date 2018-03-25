@@ -82,7 +82,7 @@
             </objects>
             <point key="canvasLocation" x="500" y="80"/>
         </scene>
-        <!--Patient TableVC-->
+        <!--Patient list-->
         <scene sceneID="6uj-aj-KJh">
             <objects>
                 <tableViewController id="1YU-6u-rbg" customClass="PatientTableVC" customModule="SmartWalker" customModuleProvider="target" sceneMemberID="viewController">
@@ -154,6 +154,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Patient list" id="StS-SX-UKE"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="Iyt-f5-sVg" kind="show" identifier="patientDetailSegue" id="ZSF-7e-q4g"/>

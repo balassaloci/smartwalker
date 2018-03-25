@@ -48,7 +48,8 @@ class PatientTableVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         activityIndicator.startAnimating()
-        PatientDataAPI.shared.getLastDiagnosis(completion: { diagnosticEvent, error in
+        PatientDataAPI.shared.getExampleLastDiagnosis(completion: { diagnosticEvent, error in
+        //PatientDataAPI.shared.getLastDiagnosis(completion: { diagnosticEvent, error in
             var patient = self.patients[indexPath.row]
             if let diagnosticEvent = diagnosticEvent, error == nil {
                 patient.diagnosticEvent = diagnosticEvent

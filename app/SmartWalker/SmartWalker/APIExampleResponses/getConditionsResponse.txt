@@ -1,0 +1,22 @@
+[
+{
+"description": "The gait looks normal",
+"id": 1,
+"name": "Normal"
+},
+{
+"description": "Parkinson's disease (PD) is a long-term degenerative disorder of the central nervous system that mainly affects the motor system. The symptoms generally come on slowly over time. Early in the disease, the most obvious are shaking, rigidity, slowness of movement, and difficulty with walking. Thinking and behavioral problems may also occur. Dementia becomes common in the advanced stages of the disease. Depression and anxiety are also common occurring in more than a third of people with PD. Other symptoms include sensory, sleep, and emotional problems. The main motor symptoms are collectively called \"parkinsonism\", or a \"parkinsonian syndrome\". (Wikipedia)",
+"id": 2,
+"name": "Parkinson's disease"
+},
+{
+"description": "Gait in which the leg is stiff, without flexion at knee and ankle, and with each step is rotated away from the body, then towards it, forming a semicircle. (Medilexicon)",
+"id": 3,
+"name": "Hemiplegic gait"
+},
+{
+"description": "An abnormal gait pattern in which one side of the body dips or moves slightly downward with ambulation. (Miller-Keane Encyclopedia)",
+"id": 4,
+"name": "Limp right"
+}
+]

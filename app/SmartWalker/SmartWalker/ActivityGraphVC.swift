@@ -56,7 +56,7 @@ class ActivityGraphVC: UIViewController {
         LoginVC.addActivityIndicator(activityIndicator: activityIndicator, view: self.view)
         startDateField.inputView = UIView(frame: CGRect.zero)
         endDateField.inputView = UIView(frame: CGRect.zero)
-        getAndDisplayData()
+        //getAndDisplayData()
     }
     
     func setupGraphProperties(graph: BEMSimpleLineGraphView){
@@ -74,7 +74,8 @@ class ActivityGraphVC: UIViewController {
     
     func getAndDisplayData(){
         activityIndicator.startAnimating()
-        PatientDataAPI.shared.getMeasurementsFor(user: patient.id, from: startDate, to: endDate, completion: { measurements, error in
+        PatientDataAPI.shared.getExampleMeasurements(completion: { measurements, error in
+        //PatientDataAPI.shared.getMeasurementsFor(user: patient.id, from: startDate, to: endDate, completion: { measurements, error in
             guard let measurements = measurements, error == nil else {
                 self.activityIndicator.stopAnimating()
                 print(error!)

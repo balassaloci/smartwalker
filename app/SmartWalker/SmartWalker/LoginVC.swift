@@ -18,7 +18,8 @@ class LoginVC: UIViewController {
     
     @IBAction func login() {
         if (usernameField.text == "Doctor" && passwordField.text == "pass") {
-            PatientDataAPI.shared.getConditions(completion: { conditions, error in
+            PatientDataAPI.shared.getExampleConditions(completion: { conditions, error in
+            //PatientDataAPI.shared.getConditions(completion: { conditions, error in
                 if let conditions = conditions, error == nil {
                     GaitCondition.knownConditions = conditions
                 } else {

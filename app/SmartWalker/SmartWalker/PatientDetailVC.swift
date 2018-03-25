@@ -20,7 +20,8 @@ class PatientDetailVC: UIViewController {
         activityIndicator.startAnimating()
         let startDate = patient.diagnosticEvent?.startOfEvent ?? Calendar.current.date(byAdding: DateComponents(day: -1), to: Date())!
         let endDate = patient.diagnosticEvent?.endOfEvent ?? Date()
-        PatientDataAPI.shared.getMeasurementsFor(user: patient.id, from: startDate, to: endDate, completion: { measurements, error in
+        PatientDataAPI.shared.getExampleMeasurements(completion: { measurements, error in
+        //PatientDataAPI.shared.getMeasurementsFor(user: patient.id, from: startDate, to: endDate, completion: { measurements, error in
             guard let measurements = measurements, error == nil else {
                 print(error!); return
             }
@@ -48,7 +49,11 @@ class PatientDetailVC: UIViewController {
             print(patient.diagnosticEvent as Any)
             let condition = GaitCondition.knownConditions[diagnosis.rawValue-1]
             if let confidence = patient.diagnosticEvent?.confidence {
-                diagnosisLabel.text = "\(condition.name) - \(confidence*100)%"
+                let percentageFormatter = NumberFormatter()
+                percentageFormatter.numberStyle = .percent
+                percentageFormatter.maximumFractionDigits = 2
+                let confidencePercentageString = percentageFormatter.string(for: confidence) ?? "\(confidence*100)%"
+                diagnosisLabel.text = "\(condition.name) - \(confidencePercentageString)"
             } else {
                 diagnosisLabel.text = condition.name
             }

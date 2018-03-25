@@ -12,10 +12,15 @@ class DisplayGaitModelVC: UIViewController {
     @IBOutlet weak var playPauseButton: UIBarButtonItem!
     @IBAction func playPause(_ sender: UIBarButtonItem) {
         if gaitModelImageView.isAnimating {
-            //gaitModelImageView.stopAnimating()
-            //playPauseButton =
+            gaitModelImageView.stopAnimating()
+            let gaitModelView = GaitModelView(with: keypointsTimeline.first!)
+            gaitModelView.backgroundColor = .white
+            gaitModelView.frame = self.view.frame
+            gaitModelImageView.image = UIImage(view: gaitModelView)
+            playPauseButton = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(DisplayGaitModelVC.playPause(_:)))
         } else {
-            //gaitModelImageView.stopAnimating()
+            gaitModelImageView.startAnimating()
+            playPauseButton = UIBarButtonItem(barButtonSystemItem: .pause, target: self, action: #selector(DisplayGaitModelVC.playPause(_:)))
         }
     }
     var keypointsTimeline: [OpenPoseKeyPointsArray]!

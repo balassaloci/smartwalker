@@ -13,8 +13,8 @@ class PatientDataAPI {
     static let shared = PatientDataAPI()
     private init(){}
     
-    private let baseUrl = "http://34.224.3.38:8080"
-    
+    private let baseUrl = "http://34.229.254.5:8080"
+ 
     func getMeasurementsFor(user userId:Int, from startDate:Date,to endDate:Date, completion: @escaping ([PatientMeasurement]?,Error?)->()){
         let getMeasurementsUrlString = "\(baseUrl)/getMeasurements/\(userId)/\(startDate.timeIntervalSince1970)/\(endDate.timeIntervalSince1970)"
         guard let getMeasurementsUrl = URL(string: getMeasurementsUrlString) else {
@@ -43,6 +43,23 @@ class PatientDataAPI {
                 }
             }
         }).resume()
+    }
+    
+    func getExampleMeasurements(completion: @escaping ([PatientMeasurement]?,Error?)->()){
+        let getMeasurementsUrl = Bundle.main.resourceURL!.appendingPathComponent("getMeasurementsResponse").appendingPathExtension("txt")
+        do {
+            let getMeasurementsAPIResponse = try Data(contentsOf: getMeasurementsUrl)
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .formatted(PatientMeasurement.dateFormatter)
+            let measurements = try decoder.decode([PatientMeasurement].self, from: getMeasurementsAPIResponse)
+            DispatchQueue.main.async {
+                completion(measurements, nil)
+            }
+        } catch {
+            DispatchQueue.main.async {
+                completion(nil,error)
+            }
+        }
     }
     
     func measurementsWithKeypoints(_ measurements: [PatientMeasurement])->[OpenPoseKeyPointsArray] {
@@ -86,6 +103,21 @@ class PatientDataAPI {
         }).resume()
     }
     
+    func getExampleConditions(completion: @escaping([GaitCondition]?,Error?)->()){
+        let getConditionsUrl = Bundle.main.resourceURL!.appendingPathComponent("getConditionsResponse").appendingPathExtension("txt")
+        do {
+            let getConditionsAPIResponse = try Data(contentsOf: getConditionsUrl)
+            let conditions = try JSONDecoder().decode([GaitCondition].self, from: getConditionsAPIResponse)
+            DispatchQueue.main.async {
+                completion(conditions, nil)
+            }
+        } catch {
+            DispatchQueue.main.async {
+                completion(nil,error)
+            }
+        }
+    }
+    
     func getLastDiagnosis(completion: @escaping(DiagnosticEvent?,Error?)->()){
         let getLastDiagnosisUrl = URL(string: "\(baseUrl)/getLastEvent/1")!
         URLSession.shared.dataTask(with: getLastDiagnosisUrl, completionHandler: { data, response, error in
@@ -108,6 +140,23 @@ class PatientDataAPI {
                 }
             }
         }).resume()
+    }
+    
+    func getExampleLastDiagnosis(completion: @escaping(DiagnosticEvent?,Error?)->()){
+        let getLastDiagnosisUrl = Bundle.main.resourceURL!.appendingPathComponent("getLastEventResponse").appendingPathExtension("txt")
+        do {
+            let getLastEventAPIResponse = try Data(contentsOf: getLastDiagnosisUrl)
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .formatted(PatientMeasurement.dateFormatter)
+            let diagnosticEvent = try decoder.decode(DiagnosticEvent.self, from: getLastEventAPIResponse)
+            DispatchQueue.main.async {
+                completion(diagnosticEvent, nil)
+            }
+        } catch {
+            DispatchQueue.main.async {
+                completion(nil,error)
+            }
+        }
     }
 }
 

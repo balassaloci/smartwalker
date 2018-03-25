@@ -24,6 +24,9 @@
 		633DF38F205849E3000B116D /* PatientMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DF38E205849E3000B116D /* PatientMeasurement.swift */; };
 		633DF39120585340000B116D /* ActivityGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DF39020585340000B116D /* ActivityGraphVC.swift */; };
 		633DF3932058777A000B116D /* DisplayGaitModelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DF3922058777A000B116D /* DisplayGaitModelVC.swift */; };
+		633DF39720594636000B116D /* getConditionsResponse.txt in Resources */ = {isa = PBXBuildFile; fileRef = 633DF39620594636000B116D /* getConditionsResponse.txt */; };
+		633DF39A20594668000B116D /* getLastEventResponse.txt in Resources */ = {isa = PBXBuildFile; fileRef = 633DF39920594668000B116D /* getLastEventResponse.txt */; };
+		633DF39C2059468E000B116D /* getMeasurementsResponse.txt in Resources */ = {isa = PBXBuildFile; fileRef = 633DF39B2059468E000B116D /* getMeasurementsResponse.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +50,9 @@
 		633DF38E205849E3000B116D /* PatientMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientMeasurement.swift; sourceTree = "<group>"; };
 		633DF39020585340000B116D /* ActivityGraphVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityGraphVC.swift; sourceTree = "<group>"; };
 		633DF3922058777A000B116D /* DisplayGaitModelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayGaitModelVC.swift; sourceTree = "<group>"; };
+		633DF39620594636000B116D /* getConditionsResponse.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = getConditionsResponse.txt; sourceTree = "<group>"; };
+		633DF39920594668000B116D /* getLastEventResponse.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = getLastEventResponse.txt; sourceTree = "<group>"; };
+		633DF39B2059468E000B116D /* getMeasurementsResponse.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = getMeasurementsResponse.txt; sourceTree = "<group>"; };
 		89B9B5A3F4755B368D5AAB99 /* Pods_SmartWalker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartWalker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2EDD09B904FF2BF05A711FC /* Pods-SmartWalker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartWalker.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartWalker/Pods-SmartWalker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +90,7 @@
 		630158AC2034544300F84147 /* SmartWalker */ = {
 			isa = PBXGroup;
 			children = (
+				633DF39820594641000B116D /* APIExampleResponses */,
 				631861692057047C009DBA74 /* BridgingHeader.h */,
 				633DF39020585340000B116D /* ActivityGraphVC.swift */,
 				630158AD2034544300F84147 /* AppDelegate.swift */,
@@ -104,6 +111,16 @@
 				630158B92034544300F84147 /* Info.plist */,
 			);
 			path = SmartWalker;
+			sourceTree = "<group>";
+		};
+		633DF39820594641000B116D /* APIExampleResponses */ = {
+			isa = PBXGroup;
+			children = (
+				633DF39620594636000B116D /* getConditionsResponse.txt */,
+				633DF39920594668000B116D /* getLastEventResponse.txt */,
+				633DF39B2059468E000B116D /* getMeasurementsResponse.txt */,
+			);
+			path = APIExampleResponses;
 			sourceTree = "<group>";
 		};
 		CEB287D39977A115C8029A57 /* Frameworks */ = {
@@ -185,9 +202,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				633DF39720594636000B116D /* getConditionsResponse.txt in Resources */,
 				630158B82034544300F84147 /* LaunchScreen.storyboard in Resources */,
 				630158B52034544300F84147 /* Assets.xcassets in Resources */,
 				630158B32034544300F84147 /* Main.storyboard in Resources */,
+				633DF39A20594668000B116D /* getLastEventResponse.txt in Resources */,
+				633DF39C2059468E000B116D /* getMeasurementsResponse.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

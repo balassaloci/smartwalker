@@ -1,0 +1,9 @@
+{
+"confidence": 0.852941176470588,
+"diagnosis": 3,
+"id": 21,
+"measurement_from": "Wed, 14 Mar 2018 09:59:53 GMT",
+"measurement_to": "Wed, 14 Mar 2018 09:59:58 GMT",
+"patient": 1,
+"timestamp": "Wed, 14 Mar 2018 09:59:58 GMT"
+}
